@@ -1,10 +1,10 @@
-#include "depth_first.h"
+#include "breadth_first.h"
 
 #include <iostream>
 #include <boost/graph/adjacency_matrix.hpp>
-#include <boost/graph/depth_first_search.hpp>
+#include <boost/graph/breadth_first_search.hpp>
 
-class dfs_print_visitor: public boost::default_dfs_visitor {
+class bfs_print_visitor: public boost::default_bfs_visitor {
 public:
   template<typename Vertex, typename Graph>
   void discover_vertex(Vertex u, const Graph & g) const {
@@ -12,7 +12,7 @@ public:
   }
 };
 
-void boost_depth_first_sample() {
+void boost_breadth_first_sample() {
   const int n = 7;
 
   typedef boost::adjacency_matrix<boost::undirectedS> Graph;
@@ -27,8 +27,8 @@ void boost_depth_first_sample() {
   boost::add_edge(3, 6, g);
   boost::add_edge(4, 5, g);
 
-  dfs_print_visitor vis;
+  bfs_print_visitor vis;
 
-  boost::depth_first_search(g, boost::visitor(vis));
+  boost::breadth_first_search(g, boost::vertex(0, g), boost::visitor(vis));
 }
 
