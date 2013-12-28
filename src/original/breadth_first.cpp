@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <queue>
+#include "sample_graph.h"
 
 void breadth_first(int **G, int *V, int n) {
   std::queue<int> kolejka;
@@ -30,15 +31,10 @@ void breadth_first(int **G, int *V, int n) {
 
 void original_breadth_first_sample() {
   const int n = 7;
-  int *G[n], V[n];
-  //                  0  1  2  3  4  5  6
-  G[0] = new int[n] { 1, 1, 0, 1, 1, 0, 0 };
-  G[1] = new int[n] { 1, 1, 1, 0, 1, 0, 0 };
-  G[2] = new int[n] { 0, 1, 1, 0, 0, 0, 1 };
-  G[3] = new int[n] { 1, 0, 0, 1, 1, 0, 1 };
-  G[4] = new int[n] { 1, 1, 0, 1, 1, 1, 0 };
-  G[5] = new int[n] { 0, 0, 0, 0, 1, 1, 0 };
-  G[6] = new int[n] { 0, 0, 1, 1, 0, 0, 1 };
+  int V[n];
+  int** G = original_sample_graph();
 
   breadth_first(G, V, n);
+
+  free_original_sample_graph(G);
 }
