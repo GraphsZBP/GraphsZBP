@@ -17,19 +17,20 @@ public:
       boost::no_property, Weight> BoostWeightedGraph;
 
 private:
-  const int m_size;
+  const size_t m_size;
   OriginalGraph m_original_graph;
   std::shared_ptr<BoostSimpleGraph> m_boost_graph;
   BoostWeightedGraph m_boost_weighted_graph;
 
-  int generate_edge_number(int i);
+  size_t generate_edge_number(size_t i);
   void enhance_graph_connectivity();
+  void original_to_boost();
 
 public:
   static AdjacencyMatrixElement NO_EDGE;
 
   graph_generator();
-  graph_generator(int size, int fill);
+  graph_generator(size_t size, int fill);
   ~graph_generator();
 
   void print();
