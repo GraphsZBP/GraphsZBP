@@ -1,7 +1,7 @@
 #include "depth_first.h"
 
 #include <iostream>
-#include "sample_graph.h"
+#include "../common/graph_generator.h"
 
 void depth_first_visit(int **G, int *V, int i, int n);
 
@@ -31,10 +31,9 @@ void depth_first_visit(int **G, int *V, int i, int n) {
 
 void original_depth_first_sample() {
   const int n = 7;
-  int V[n];
-  int** G = original_sample_graph();
+  int *V = new int[n];
+  graph_generator graph;
 
-  depth_first(G, V, n);
-
-  free_original_sample_graph(G);
+  depth_first(graph.original_graph(), V, n);
+  delete[] V;
 }
