@@ -8,6 +8,9 @@
 #include "boost/depth_first.h"
 #include "original/breadth_first.h"
 #include "boost/breadth_first.h"
+#include "original/floyd_warshall.h"
+#include "boost/floyd_warshall.h"
+
 
 void test(const std::shared_ptr<graph_generator>& graph) {
   using namespace std::chrono;
@@ -41,12 +44,19 @@ void test(const std::shared_ptr<graph_generator>& graph) {
 
 int main() {
   srand(static_cast<unsigned int>(time(NULL)));
+  std::cout << std::endl << "Floyd-Warshall" << std::endl;
+  graph_generator *fw_generator = new graph_generator();
+  std::shared_ptr<graph_generator> fw_graph(fw_generator);
+
+  original_floyd_warshall(fw_graph);
+  boost_floyd_warshall(fw_graph);
+
   graph_generator *generator = new graph_generator();
   std::shared_ptr<graph_generator> graph(generator);
   test(graph);
 
   std::cout << "Random" << std::endl;
-  graph_generator *random_generator = new graph_generator(5000, 90);
+  graph_generator *random_generator = new graph_generator(10, 90);
   std::shared_ptr<graph_generator> random_graph(random_generator);
   //random_generator->print();
   test(random_graph);

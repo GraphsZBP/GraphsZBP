@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-void depth_first_visit(int **G, int *V, int i, size_t n);
+void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i, size_t n);
 
-void depth_first(int **G, int *V, size_t n) {
+void depth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   size_t i;
   for (i = 0; i < n; i++) {
     V[i] = 0;
@@ -16,11 +16,11 @@ void depth_first(int **G, int *V, size_t n) {
   }
 }
 
-void depth_first_visit(int **G, int *V, int i, size_t n) {
+void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i, size_t n) {
   std::cout << i << " ";
   V[i] = 1;
   for (size_t k = 0; k < n; k++) {
-    if (G[i][k] != 0) {
+    if (G[i][k] != graph_generator::NO_EDGE) {
       if (V[k] == 0) {
         depth_first_visit(G, V, k, n);
       }
@@ -29,7 +29,7 @@ void depth_first_visit(int **G, int *V, int i, size_t n) {
 }
 
 void original_depth_first_sample(std::shared_ptr<graph_generator> graph) {
-  int *V = new int[graph->size()];
+  bool *V = new bool[graph->size()];
 
   depth_first(graph->original_graph(), V, graph->size());
   delete[] V;

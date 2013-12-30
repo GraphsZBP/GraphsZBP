@@ -2,12 +2,11 @@
 
 #include <iostream>
 #include <queue>
-#include "../common/graph_generator.h"
 
-void breadth_first(int **G, int *V, size_t n) {
+void breadth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   std::queue<int> kolejka;
   for (size_t i = 0; i < n; i++) {
-    V[i] = 0;
+    V[i] = false;
   }
 
   kolejka.push(0);
@@ -19,9 +18,9 @@ void breadth_first(int **G, int *V, size_t n) {
 
     V[s] = 1;
     for (size_t k = 0; k < n; k++) {
-      if (G[s][k] != 0) {
-        if (V[k] == 0) {
-          V[k] = 1;
+      if (G[s][k] != graph_generator::NO_EDGE) {
+        if (V[k] == false) {
+          V[k] = true;
           kolejka.push(k);
         }
       }
@@ -30,7 +29,7 @@ void breadth_first(int **G, int *V, size_t n) {
 }
 
 void original_breadth_first_sample(std::shared_ptr<graph_generator> graph) {
-  int *V = new int[graph->size()];
+  bool *V = new bool[graph->size()];
 
   breadth_first(graph->original_graph(), V, graph->size());
   delete[] V;

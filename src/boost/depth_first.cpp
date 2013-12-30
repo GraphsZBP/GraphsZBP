@@ -16,6 +16,6 @@ public:
 void boost_depth_first_sample(std::shared_ptr<graph_generator> graph) {
   dfs_print_visitor vis;
 
-  boost::depth_first_search(graph->boost_graph(), boost::visitor(vis));
+  boost::depth_first_search(*(graph->boost_graph()), boost::visitor(vis));
 }
 
