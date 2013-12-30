@@ -13,9 +13,8 @@ public:
   }
 };
 
-void boost_breadth_first_sample() {
-  graph_generator graph;
+void boost_breadth_first_sample(std::shared_ptr<graph_generator> graph) {
   bfs_print_visitor vis;
 
-  boost::breadth_first_search(graph.boost_graph(), graph.boost_initial_vertex(), boost::visitor(vis));
+  boost::breadth_first_search(graph->boost_graph(), graph->boost_initial_vertex(), boost::visitor(vis));
 }

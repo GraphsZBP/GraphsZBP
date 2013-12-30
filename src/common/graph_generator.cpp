@@ -1,8 +1,8 @@
 #include "graph_generator.h"
 
 graph_generator::graph_generator() :
-    m_original_graph(new int*[7]), m_boost_graph(
-        boost::adjacency_matrix<boost::undirectedS>(7)) {
+    m_size(7), m_original_graph(new int*[m_size]), m_boost_graph(
+        boost::adjacency_matrix<boost::undirectedS>(m_size)) {
   boost::add_edge(0, 1, m_boost_graph);
   boost::add_edge(0, 3, m_boost_graph);
   boost::add_edge(0, 4, m_boost_graph);
@@ -25,9 +25,8 @@ graph_generator::graph_generator() :
 }
 
 graph_generator::graph_generator(int size, int fill) :
-    m_original_graph(new int*[size]), m_boost_graph(
-        boost::adjacency_matrix<boost::undirectedS>(size)) {
-
+        m_size(7), m_original_graph(new int*[m_size]), m_boost_graph(
+            boost::adjacency_matrix<boost::undirectedS>(m_size)) {
 }
 
 graph_generator::~graph_generator() {
@@ -44,6 +43,10 @@ int** graph_generator::original_graph() {
 
 boost::adjacency_matrix<boost::undirectedS> graph_generator::boost_graph() {
   return m_boost_graph;
+}
+
+size_t graph_generator::size() {
+  return m_size;
 }
 
 boost::adjacency_matrix<boost::undirectedS>::vertex_descriptor graph_generator::boost_initial_vertex() {

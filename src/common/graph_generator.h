@@ -4,6 +4,7 @@
 #include <boost/graph/adjacency_matrix.hpp>
 
 class graph_generator {
+  int m_size;
   int** m_original_graph;
   boost::adjacency_matrix<boost::undirectedS> m_boost_graph;
 
@@ -12,6 +13,7 @@ public:
   graph_generator(int size, int fill);
   ~graph_generator();
 
+  size_t size();
   int** original_graph();
   boost::adjacency_matrix<boost::undirectedS> boost_graph();
   boost::adjacency_matrix<boost::undirectedS>::vertex_descriptor boost_initial_vertex();
