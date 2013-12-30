@@ -8,11 +8,15 @@ class graph_generator {
   int** m_original_graph;
   boost::adjacency_matrix<boost::undirectedS> m_boost_graph;
 
+  int generate_edge_number(int i);
+  void enhance_graph_connectivity();
+
 public:
   graph_generator();
   graph_generator(int size, int fill);
   ~graph_generator();
 
+  void print();
   size_t size();
   int** original_graph();
   boost::adjacency_matrix<boost::undirectedS> boost_graph();

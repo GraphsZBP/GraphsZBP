@@ -1,5 +1,7 @@
 #include "graph_generator.h"
 
+#include <algorithm>
+
 graph_generator::graph_generator() :
     m_size(7), m_original_graph(new int*[m_size]), m_boost_graph(
         boost::adjacency_matrix<boost::undirectedS>(m_size)) {
@@ -25,8 +27,41 @@ graph_generator::graph_generator() :
 }
 
 graph_generator::graph_generator(int size, int fill) :
-        m_size(7), m_original_graph(new int*[m_size]), m_boost_graph(
-            boost::adjacency_matrix<boost::undirectedS>(m_size)) {
+    m_size(size), m_original_graph(new int*[m_size]), m_boost_graph(
+        boost::adjacency_matrix<boost::undirectedS>(m_size)) {
+  for (int i = 0; i < m_size; i++) {
+    m_original_graph[i] = new int[m_size];
+    m_original_graph[i][i] = 1;
+    for (int j = 0; j < i; j++) {
+      bool is_connected = (rand() % 100) < fill;
+      m_original_graph[i][j] = m_original_graph[j][i] = is_connected;
+      if (is_connected) {
+        boost::add_edge(i, j, m_boost_graph);
+      }
+    }
+  }
+
+  enhance_graph_connectivity();
+}
+
+void graph_generator::enhance_graph_connectivity() {
+  for (int i = 0; i < m_size; i++) {
+    int edges_count = std::count(m_original_graph[i],
+        m_original_graph[i] + m_size, 1);
+    if (edges_count == 1) {
+      int edge_number = generate_edge_number(i);
+      m_original_graph[i][edge_number] = m_original_graph[edge_number][i] = 1;
+      boost::add_edge(i, edge_number, m_boost_graph);
+    }
+  }
+}
+
+int graph_generator::generate_edge_number(int i) {
+  int edge_number = (rand() % (m_size - 1));
+  if (edge_number >= i) {
+    edge_number += 1;
+  }
+  return edge_number;
 }
 
 graph_generator::~graph_generator() {
@@ -35,6 +70,15 @@ graph_generator::~graph_generator() {
     delete[] m_original_graph[i];
   }
   delete[] m_original_graph;
+}
+
+void graph_generator::print() {
+  for (int i = 0; i < m_size; i++) {
+    for (int j = 0; j < m_size; j++) {
+      std::cout << m_original_graph[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
 }
 
 int** graph_generator::original_graph() {
