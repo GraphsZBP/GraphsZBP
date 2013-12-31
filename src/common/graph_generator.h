@@ -1,22 +1,24 @@
 #ifndef GRAPH_GENERATOR_H_
 #define GRAPH_GENERATOR_H_
 
-#include <map>
-#include <string>
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/adjacency_list.hpp>
 
 class graph_generator {
 public:
-  typedef unsigned int AdjacencyMatrixElement;
+  typedef unsigned int Weight;
+private:
+  typedef boost::property<boost::edge_weight_t, Weight> WeightProperty;
+public:
   typedef boost::adjacency_matrix<boost::undirectedS> BoostSimpleGraph;
-  typedef AdjacencyMatrixElement** OriginalGraph;
+  typedef Weight** OriginalGraph;
 
-  typedef boost::property<boost::edge_weight_t, AdjacencyMatrixElement> Weight;
   typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
-      boost::no_property, Weight> BoostWeightedGraph;
+      boost::no_property, WeightProperty> BoostWeightedGraph;
 
 private:
+  static Weight MAX_WEIGHT;
+
   const size_t m_size;
   OriginalGraph m_original_graph;
   std::shared_ptr<BoostSimpleGraph> m_boost_graph;
@@ -27,7 +29,7 @@ private:
   void original_to_boost();
 
 public:
-  static AdjacencyMatrixElement NO_EDGE;
+  static Weight NO_EDGE;
 
   graph_generator();
   graph_generator(size_t size, int fill);

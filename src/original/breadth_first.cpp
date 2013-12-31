@@ -14,7 +14,9 @@ void breadth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   while (!kolejka.empty()) {
     int s = kolejka.front();
     kolejka.pop();
+#ifdef DEBUG
     std::cout << s << " ";
+#endif
 
     V[s] = 1;
     for (size_t k = 0; k < n; k++) {

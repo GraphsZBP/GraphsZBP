@@ -3,34 +3,37 @@
 #include <algorithm>
 #include <limits.h>
 
-graph_generator::AdjacencyMatrixElement graph_generator::NO_EDGE = INT_MAX;
+#define VERBOSE 1
+
+graph_generator::Weight graph_generator::NO_EDGE = INT_MAX;
+graph_generator::Weight graph_generator::MAX_WEIGHT = 10;
 
 graph_generator::graph_generator() :
-    m_size(7), m_original_graph(new AdjacencyMatrixElement*[m_size]), m_boost_graph(
+    m_size(7), m_original_graph(new Weight*[m_size]), m_boost_graph(
         new BoostSimpleGraph(m_size)) {
   const int n = 7;
   const unsigned int x = NO_EDGE;
-  //                                                    0  1  2  3  4  5  6
-  m_original_graph[0] = new AdjacencyMatrixElement[n] { 0, 1, x, 1, 1, x, x };
-  m_original_graph[1] = new AdjacencyMatrixElement[n] { 1, 0, 1, x, 1, x, x };
-  m_original_graph[2] = new AdjacencyMatrixElement[n] { x, 1, 0, x, x, x, 1 };
-  m_original_graph[3] = new AdjacencyMatrixElement[n] { 1, x, x, 0, 1, x, 1 };
-  m_original_graph[4] = new AdjacencyMatrixElement[n] { 1, 1, x, 1, 0, 1, x };
-  m_original_graph[5] = new AdjacencyMatrixElement[n] { x, x, x, x, 1, 0, x };
-  m_original_graph[6] = new AdjacencyMatrixElement[n] { x, x, 1, 1, x, x, 0 };
+  //                                    0  1  2  3  4  5  6
+  m_original_graph[0] = new Weight[n] { 0, 1, x, 1, 1, x, x };
+  m_original_graph[1] = new Weight[n] { 1, 0, 1, x, 1, x, x };
+  m_original_graph[2] = new Weight[n] { x, 1, 0, x, x, x, 1 };
+  m_original_graph[3] = new Weight[n] { 1, x, x, 0, 1, x, 1 };
+  m_original_graph[4] = new Weight[n] { 1, 1, x, 1, 0, 1, x };
+  m_original_graph[5] = new Weight[n] { x, x, x, x, 1, 0, x };
+  m_original_graph[6] = new Weight[n] { x, x, 1, 1, x, x, 0 };
 
   original_to_boost();
 }
 
 graph_generator::graph_generator(size_t size, int fill) :
-    m_size(size), m_original_graph(new AdjacencyMatrixElement*[m_size]), m_boost_graph(
+    m_size(size), m_original_graph(new Weight*[m_size]), m_boost_graph(
         new BoostSimpleGraph(m_size)) {
   for (size_t i = 0; i < m_size; i++) {
-    m_original_graph[i] = new AdjacencyMatrixElement[m_size];
+    m_original_graph[i] = new Weight[m_size];
     m_original_graph[i][i] = 0;
     for (size_t j = 0; j < i; j++) {
       bool is_connected = (rand() % 100) < fill;
-      m_original_graph[i][j] = m_original_graph[j][i] = is_connected;
+      m_original_graph[i][j] = m_original_graph[j][i] = is_connected ? (rand() % MAX_WEIGHT) : NO_EDGE;
     }
   }
 
@@ -44,7 +47,7 @@ void graph_generator::enhance_graph_connectivity() {
         m_original_graph[i] + m_size, 1);
     if (edges_count == 1) {
       int edge_number = generate_edge_number(i);
-      m_original_graph[i][edge_number] = m_original_graph[edge_number][i] = 1;
+      m_original_graph[i][edge_number] = m_original_graph[edge_number][i] = MAX_WEIGHT;
     }
   }
 }

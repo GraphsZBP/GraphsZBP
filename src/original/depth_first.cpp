@@ -1,8 +1,11 @@
 #include "depth_first.h"
 
+#ifdef DEBUG
 #include <iostream>
+#endif
 
-void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i, size_t n);
+void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i,
+    size_t n);
 
 void depth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   size_t i;
@@ -16,8 +19,11 @@ void depth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   }
 }
 
-void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i, size_t n) {
+void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i,
+    size_t n) {
+#ifdef DEBUG
   std::cout << i << " ";
+#endif
   V[i] = 1;
   for (size_t k = 0; k < n; k++) {
     if (G[i][k] != graph_generator::NO_EDGE) {
