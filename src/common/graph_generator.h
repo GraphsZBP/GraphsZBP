@@ -16,6 +16,9 @@ public:
   typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
       boost::no_property, WeightProperty> BoostWeightedGraph;
 
+  typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS, boost::no_property,
+		  WeightProperty> BoostWeightedDirectedGraph;
+
 private:
   static Weight MAX_WEIGHT;
 
@@ -23,6 +26,7 @@ private:
   OriginalGraph m_original_graph;
   std::shared_ptr<BoostSimpleGraph> m_boost_graph;
   BoostWeightedGraph m_boost_weighted_graph;
+  BoostWeightedDirectedGraph m_boost_weighted_directed_graph;
 
   size_t generate_edge_number(size_t i);
   void enhance_graph_connectivity();
@@ -41,6 +45,7 @@ public:
   std::shared_ptr<BoostSimpleGraph> boost_graph();
   BoostSimpleGraph::vertex_descriptor boost_initial_vertex();
   BoostWeightedGraph boost_weighted_graph();
+  BoostWeightedDirectedGraph boost_weighted_directed_graph();
 };
 
 #endif /* GRAPH_GENERATOR_H_ */

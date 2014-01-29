@@ -62,6 +62,7 @@ size_t graph_generator::generate_edge_number(size_t i) {
 
 void graph_generator::original_to_boost() {
   typename boost::graph_traits<BoostWeightedGraph>::vertex_descriptor u, v;
+  typename boost::graph_traits<BoostWeightedDirectedGraph>::vertex_descriptor u2, v2;
 
   for (size_t i = 0; i < m_size; i++) {
     for (size_t j = 0; j < i; j++) {
@@ -71,6 +72,10 @@ void graph_generator::original_to_boost() {
         u = boost::vertex(i, m_boost_weighted_graph);
         v = boost::vertex(j, m_boost_weighted_graph);
         boost::add_edge(u, v, m_original_graph[i][j], m_boost_weighted_graph);
+
+        u2 = boost::vertex(i, m_boost_weighted_directed_graph);
+		v2 = boost::vertex(j, m_boost_weighted_directed_graph);
+		boost::add_edge(u2, v2, m_original_graph[i][j], m_boost_weighted_directed_graph);
       }
     }
   }
@@ -110,4 +115,8 @@ graph_generator::BoostSimpleGraph::vertex_descriptor graph_generator::boost_init
 
 graph_generator::BoostWeightedGraph graph_generator::boost_weighted_graph() {
   return m_boost_weighted_graph;
+}
+
+graph_generator::BoostWeightedDirectedGraph graph_generator::boost_weighted_directed_graph() {
+  return m_boost_weighted_directed_graph;
 }

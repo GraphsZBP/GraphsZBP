@@ -11,6 +11,9 @@
 #include "boost/breadth_first.h"
 #include "original/floyd_warshall.h"
 #include "boost/floyd_warshall.h"
+#include "boost/dijkstra.h"
+#include "boost/bellman_ford.h"
+#include "boost/johnson.h"
 
 
 void test(const std::shared_ptr<graph_generator>& graph) {
@@ -32,6 +35,24 @@ void test(const std::shared_ptr<graph_generator>& graph) {
   duration = measure(&original_floyd_warshall, graph);
   std::cout << std::endl << duration << std::endl;
   duration = measure(&boost_floyd_warshall, graph);
+  std::cout << std::endl << duration << std::endl;
+
+  std::cout << "Dijkstra" << std::endl;
+  //duration = measure(&, graph);
+  //std::cout << std::endl << duration << std::endl;
+  duration = measure(&boost_dijkstra, graph);
+  std::cout << std::endl << duration << std::endl;
+
+  std::cout << "Bellman-Ford" << std::endl;
+  //duration = measure(&, graph);
+  //std::cout << std::endl << duration << std::endl;
+  duration = measure(&boost_johnson, graph);
+  std::cout << std::endl << duration << std::endl;
+
+  std::cout << "Johnson" << std::endl;
+  //duration = measure(&, graph);
+  //std::cout << std::endl << duration << std::endl;
+  duration = measure(&boost_bellman_ford, graph);
   std::cout << std::endl << duration << std::endl;
 }
 
