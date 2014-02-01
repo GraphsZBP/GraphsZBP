@@ -2,3 +2,5 @@
 /Release
 desktop.ini
 /*.stackdump
+.settings
+.cproject

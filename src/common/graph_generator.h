@@ -1,6 +1,7 @@
 #ifndef GRAPH_GENERATOR_H_
 #define GRAPH_GENERATOR_H_
 
+#include <limits.h>
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/adjacency_list.hpp>
 
@@ -33,7 +34,7 @@ private:
   void original_to_boost();
 
 public:
-  static Weight NO_EDGE;
+  const static Weight NO_EDGE = INT_MAX;
 
   graph_generator();
   graph_generator(size_t size, int fill);

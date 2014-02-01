@@ -46,13 +46,13 @@ void test(const std::shared_ptr<graph_generator>& graph) {
   std::cout << "Bellman-Ford" << std::endl;
   //duration = measure(&, graph);
   //std::cout << std::endl << duration << std::endl;
-  duration = measure(&boost_johnson, graph);
+  duration = measure(&boost_bellman_ford, graph);
   std::cout << std::endl << duration << std::endl;
 
   std::cout << "Johnson" << std::endl;
   //duration = measure(&, graph);
   //std::cout << std::endl << duration << std::endl;
-  duration = measure(&boost_bellman_ford, graph);
+  duration = measure(&boost_johnson, graph);
   std::cout << std::endl << duration << std::endl;
 }
 
@@ -63,11 +63,13 @@ int main() {
   std::shared_ptr<graph_generator> graph(generator);
   test(graph);
 
+/*
   std::cout << "Random" << std::endl;
   graph_generator *random_generator = new graph_generator(1000, 90);
   std::shared_ptr<graph_generator> random_graph(random_generator);
   //random_generator->print();
   test(random_graph);
+*/
 
   return EXIT_SUCCESS;
 }

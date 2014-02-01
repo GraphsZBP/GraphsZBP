@@ -1,11 +1,9 @@
 #include "graph_generator.h"
 
 #include <algorithm>
-#include <limits.h>
 
 #define VERBOSE 1
 
-graph_generator::Weight graph_generator::NO_EDGE = INT_MAX;
 graph_generator::Weight graph_generator::MAX_WEIGHT = 10;
 
 graph_generator::graph_generator() :
