@@ -89,6 +89,7 @@
     <ClCompile Include="src\common\graph_generator.cpp" />
     <ClCompile Include="src\common\timer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\original\bellman_ford.cpp" />
     <ClCompile Include="src\original\breadth_first.cpp" />
     <ClCompile Include="src\original\depth_first.cpp" />
     <ClCompile Include="src\original\dijkstra.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="src\boost\boost_johnson.h" />
     <ClInclude Include="src\common\graph_generator.h" />
     <ClInclude Include="src\common\timer.h" />
+    <ClInclude Include="src\original\bellman_ford.h" />
     <ClInclude Include="src\original\breadth_first.h" />
     <ClInclude Include="src\original\depth_first.h" />
     <ClInclude Include="src\original\dijkstra.h" />

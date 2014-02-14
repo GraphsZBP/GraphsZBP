@@ -72,6 +72,9 @@
     <ClCompile Include="src\original\dijkstra.cpp">
       <Filter>Source Files\original</Filter>
     </ClCompile>
+    <ClCompile Include="src\original\bellman_ford.cpp">
+      <Filter>Source Files\original</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\boost\boost_floyd_warshall.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files\original</Filter>
     </ClInclude>
     <ClInclude Include="src\original\floyd_warshall.h">
+      <Filter>Header Files\original</Filter>
+    </ClInclude>
+    <ClInclude Include="src\original\bellman_ford.h">
       <Filter>Header Files\original</Filter>
     </ClInclude>
   </ItemGroup>
