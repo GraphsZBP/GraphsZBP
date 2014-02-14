@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\original">
+      <UniqueIdentifier>{4d325a7c-d8ae-4c64-a002-ce9394b8ac20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{031c2117-ce1f-4eaa-8a66-55aea9e27551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\original">
+      <UniqueIdentifier>{e0a55fb8-c104-4287-bbf6-03529c6d7d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{e6738051-e0ff-4fcf-bf55-cfea2eaa44cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\boost">
+      <UniqueIdentifier>{f4abe0e7-79b3-4845-bedd-8385ee759672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\boost">
+      <UniqueIdentifier>{c54c2fab-5279-4094-b17a-0d988835284a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\boost\boost_depth_first.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boost\boost_dijkstra.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boost\boost_floyd_warshall.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boost\boost_johnson.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boost\boost_bellman_ford.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boost\boost_breadth_first.cpp">
+      <Filter>Source Files\boost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\graph_generator.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\timer.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\original\breadth_first.cpp">
+      <Filter>Source Files\original</Filter>
+    </ClCompile>
+    <ClCompile Include="src\original\depth_first.cpp">
+      <Filter>Source Files\original</Filter>
+    </ClCompile>
+    <ClCompile Include="src\original\floyd_warshall.cpp">
+      <Filter>Source Files\original</Filter>
+    </ClCompile>
+    <ClCompile Include="src\original\dijkstra.cpp">
+      <Filter>Source Files\original</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\boost\boost_floyd_warshall.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\boost\boost_johnson.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\boost\boost_bellman_ford.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\boost\boost_breadth_first.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\boost\boost_depth_first.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\boost\boost_dijkstra.h">
+      <Filter>Header Files\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\graph_generator.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\timer.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\original\dijkstra.h">
+      <Filter>Header Files\original</Filter>
+    </ClInclude>
+    <ClInclude Include="src\original\depth_first.h">
+      <Filter>Header Files\original</Filter>
+    </ClInclude>
+    <ClInclude Include="src\original\breadth_first.h">
+      <Filter>Header Files\original</Filter>
+    </ClInclude>
+    <ClInclude Include="src\original\floyd_warshall.h">
+      <Filter>Header Files\original</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

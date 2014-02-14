@@ -1,12 +1,12 @@
 #include "dijkstra.h"
 
+// TODO check INFINITY predefined variable
+#define INFINITE INT_MAX
 #ifdef DEBUG
 #include <iostream>
 #include <vector>
 #include <set>
 #include <queue>
-// TODO check INFINITY predefined variable
-#define INFINITE INT_MAX
 #endif
 
 /**
@@ -28,6 +28,8 @@ std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int sou
 		Q.insert(i);
 	}
 	d[source] = 0;
+
+
 
 	while(!Q.empty()) {
 		// u := wierzcho³ek z Q o minimalnej wartoœci d;

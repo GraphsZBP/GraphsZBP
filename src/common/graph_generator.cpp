@@ -59,8 +59,8 @@ size_t graph_generator::generate_edge_number(size_t i) {
 }
 
 void graph_generator::original_to_boost() {
-  typename boost::graph_traits<BoostWeightedGraph>::vertex_descriptor u, v;
-  typename boost::graph_traits<BoostWeightedDirectedGraph>::vertex_descriptor u2, v2;
+  boost::graph_traits<BoostWeightedGraph>::vertex_descriptor u, v;
+  boost::graph_traits<BoostWeightedDirectedGraph>::vertex_descriptor u2, v2;
 
   for (size_t i = 0; i < m_size; i++) {
     for (size_t j = 0; j < i; j++) {
