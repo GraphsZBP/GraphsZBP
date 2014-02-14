@@ -8,11 +8,10 @@
 #endif
 
 /**
- * 
- * @return Macierz odleglosci d. W przypadku wykrycia cyklu ujemnego, macierz jest pusta.
+ * @return false w przypadku wykrycia ujemnego cyklu
  */
-std::vector<double> bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t n) {
-	std::vector<double> d;
+bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t n, std::vector<double>& d) {
+	d.clear();
 	std::vector<double> p;
 
 	// Krok 1:Inicjalizacja zmiennych
@@ -44,18 +43,18 @@ std::vector<double> bellman_ford(graph_generator::OriginalGraph G, unsigned int 
 			if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d.clear();
-					return d;
+					false;
 				}
 			}
 		}
 	}
-
-	return d;
+	return true;
 }
 
 void original_bellman_ford(std::shared_ptr<graph_generator> graph) {
 	graph_generator::OriginalGraph G = graph->original_graph();
-	std::vector<double> d = bellman_ford(G, 0, graph->size());
+	std::vector<double> d;
+	bellman_ford(G, 0, graph->size(), d);
 #ifdef _DEBUG
 	if (d.empty())
 		std::cout << "Wykryto ujemny cykl" << std::endl;
