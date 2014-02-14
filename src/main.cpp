@@ -16,7 +16,6 @@
 #include "boost/boost_johnson.h"
 #include "original/dijkstra.h"
 
-
 void test(const std::shared_ptr<graph_generator>& graph) {
   double duration;
  
@@ -71,6 +70,6 @@ int main() {
   //random_generator->print();
   test(random_graph);
 */
-
+  system("pause");
   return EXIT_SUCCESS;
 }

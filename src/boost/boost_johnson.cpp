@@ -7,23 +7,42 @@
 #include <boost/graph/johnson_all_pairs_shortest.hpp>
 #include <boost/graph/graph_traits.hpp>
 
+#include <boost/config.hpp>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <iomanip>
+#include <boost/property_map/property_map.hpp>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/graphviz.hpp>
+
 using namespace boost;
 
 void boost_johnson(std::shared_ptr<graph_generator> graph) {
-  graph_generator::BoostWeightedGraph g = graph->boost_weighted_graph();
-  typedef graph_traits<graph_generator::BoostWeightedGraph>::vertex_descriptor vertex_descriptor;
-  std::vector<vertex_descriptor> p(num_vertices(g));
-  std::vector<int> d(num_vertices(g));
-  //int D[num_vertices(g)][num_vertices(g)];
-  //johnson_all_pairs_shortest_paths(g, D, distance_map(&d[0]));
+	graph_generator::BoostJohnsonGraph g = graph->boost_johnson_graph();
+	int V = num_vertices(g);
+	std::vector<int> d(V, (std::numeric_limits < int >::max)());
+	int** D = new int*[V];
+	for (int d = 0; d < V; d++)
+	{
+		D[d] = new int[V];
+	}
+	johnson_all_pairs_shortest_paths(g, D, distance_map(&d[0]));
 
-#ifdef DEBUG
-  std::cout << "distances and parents:" << std::endl;
-  graph_traits<graph_generator::BoostWeightedGraph>::vertex_iterator vi, vend;
-  for (tie(vi, vend) = vertices(g); vi != vend; ++vi) {
-    std::cout << "distance(" << *vi << ") = " << d[*vi] << ", ";
-    std::cout << "parent(" << *vi << ") = " << p[*vi] << std::endl;
-  }
-  std::cout << std::endl;
+#ifdef _DEBUG
+  std::cout << "       ";
+	for (int k = 0; k < V; ++k)
+		std::cout << std::setw(5) << k;
+	std::cout << std::endl;
+	for (int i = 0; i < V; ++i) {
+		std::cout << std::setw(3) << i << " -> ";
+		for (int j = 0; j < V; ++j) {
+			if (D[i][j] == (std::numeric_limits<int>::max)())
+				std::cout << std::setw(5) << "inf";
+			else
+				std::cout << std::setw(5) << D[i][j];
+		}
+		std::cout << std::endl;
+	}
 #endif
 }

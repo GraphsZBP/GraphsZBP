@@ -11,7 +11,7 @@ class bfs_print_visitor: public boost::default_bfs_visitor {
 public:
   template<typename Vertex, typename Graph>
   void discover_vertex(Vertex u, const Graph & g) const {
-#ifdef DEBUG
+#ifdef _DEBUG
     std::cout << u << " ";
 #endif
   }

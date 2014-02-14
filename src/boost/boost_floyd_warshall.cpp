@@ -13,7 +13,7 @@ void boost_floyd_warshall(std::shared_ptr<graph_generator> graph) {
   boost::floyd_warshall_all_pairs_shortest_paths(graph->boost_weighted_graph(),
       D);
 
-#ifdef DEBUG
+#ifdef _DEBUG
   for (size_t i = 0; i < graph->size(); i++) {
     for (size_t j = 0; j < graph->size(); j++) {
       if (D[i][j] == graph_generator::NO_EDGE) {

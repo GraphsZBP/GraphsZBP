@@ -4,3 +4,5 @@ desktop.ini
 /*.stackdump
 .settings
 .cproject
+*.sdf
+*.opensdf

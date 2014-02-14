@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphsZbp", "GraphsZbp.vcxproj", "{57892877-EF52-44FB-A26F-13CA39E3DC7D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Internet_ZBP", "..\Internet\ZBP\ZBPProject\ZBPProject\ZBPProject.vcxproj", "{F8977F53-9B67-4ECD-8BA4-99A85981FA91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{57892877-EF52-44FB-A26F-13CA39E3DC7D}.Debug|Win32.Build.0 = Debug|Win32
 		{57892877-EF52-44FB-A26F-13CA39E3DC7D}.Release|Win32.ActiveCfg = Release|Win32
 		{57892877-EF52-44FB-A26F-13CA39E3DC7D}.Release|Win32.Build.0 = Release|Win32
+		{F8977F53-9B67-4ECD-8BA4-99A85981FA91}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F8977F53-9B67-4ECD-8BA4-99A85981FA91}.Debug|Win32.Build.0 = Debug|Win32
+		{F8977F53-9B67-4ECD-8BA4-99A85981FA91}.Release|Win32.ActiveCfg = Release|Win32
+		{F8977F53-9B67-4ECD-8BA4-99A85981FA91}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
