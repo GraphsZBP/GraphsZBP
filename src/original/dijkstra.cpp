@@ -1,7 +1,6 @@
 #include "dijkstra.h"
 
 // TODO check INFINITY predefined variable
-#define INFINITE INT_MAX
 #ifdef DEBUG
 #include <iostream>
 #include <vector>
@@ -14,28 +13,27 @@
  */
 std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int source, size_t n) {
 	int u;
-	int min_d_in_q = INFINITE;
-
+	int min_d_in_q = INT_MAX;
+	
 	std::vector<double> d;
 	std::vector<double> p;
 	std::set<int> S;
 	std::set<int> Q;
 
 	// Inicjalizacja zmiennych
-	for (unsigned int i = 0; i < n; ++i) {
-		d.push_back(INFINITE);
+	for (int i = 0; i < n; ++i) {
+		d.push_back(INT_MAX);
 		p.push_back(0);
 		Q.insert(i);
 	}
 	d[source] = 0;
 
-
-
 	while(!Q.empty()) {
 		// u := wierzcho³ek z Q o minimalnej wartoœci d;
+		min_d_in_q = INT_MAX;
 		for (const int &q : Q) {
 			int actual_d_value = d[q];
-			if (min_d_in_q == INFINITE) {
+			if (min_d_in_q == INT_MAX) {
 				min_d_in_q = actual_d_value;
 				u = q;
 			}
@@ -46,7 +44,7 @@ std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int sou
 		}
 
 		// S := S + {u};
-		if (min_d_in_q != INFINITE) {
+		if (min_d_in_q != INT_MAX) {
 			Q.erase(u);
 			S.insert(u);
 		}
@@ -67,11 +65,11 @@ std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int sou
 
 void original_dijkstra(std::shared_ptr<graph_generator> graph) {
 	graph_generator::OriginalGraph G = graph->original_graph();
-
-	std::vector<double> d = dijkstra(G, graph->size(), 0);
-#ifdef DEBUG
+	
+	std::vector<double> d = dijkstra(G, 0, graph->size());
+#ifdef _DEBUG
 	for(int i = 0; i < d.size(); ++i) {
-		std::cout << 0 << " --> " << i << " : " << d[i];
+		std::cout << 0 << " --> " << i << " : " << d[i] << std::endl;
 	}
 #endif
 }

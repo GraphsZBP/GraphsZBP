@@ -38,8 +38,8 @@ void test(const std::shared_ptr<graph_generator>& graph) {
   std::cout << std::endl << duration << std::endl;
 
   std::cout << "Dijkstra" << std::endl;
-  //duration = measure(&original_dijkstra, graph);
-  //std::cout << std::endl << duration << std::endl;
+  duration = measure(&original_dijkstra, graph);
+  std::cout << std::endl << duration << std::endl;
   duration = measure(boost_dijkstra, graph);
   std::cout << std::endl << duration << std::endl;
 
