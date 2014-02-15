@@ -6,7 +6,7 @@
 #endif
 #include <queue>
 
-void floyd_warshall(graph_generator::OriginalGraph G, size_t n) {
+void floyd_warshall(zbp::distance_matrix G, size_t n) {
   for (size_t k = 0; k < n; k++) {
     for (size_t i = 0; i < n; i++) {
       for (size_t j = 0; j < n; j++) {
@@ -17,7 +17,7 @@ void floyd_warshall(graph_generator::OriginalGraph G, size_t n) {
 }
 
 void original_floyd_warshall(std::shared_ptr<graph_generator> graph) {
-  graph_generator::OriginalGraph G = graph->original_graph();
+	zbp::distance_matrix G = graph->original_graph();
 
   floyd_warshall(G, graph->size());
 #ifdef DEBUG

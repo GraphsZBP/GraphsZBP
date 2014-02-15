@@ -4,31 +4,31 @@
 
 #define VERBOSE 1
 
-graph_generator::Weight graph_generator::MAX_WEIGHT = 10;
+zbp::weight graph_generator::MAX_WEIGHT = 10;
 
 graph_generator::graph_generator() :
-m_size(7), m_original_graph(new Weight*[m_size]),
+m_size(7), m_original_graph(new zbp::weight*[m_size]),
 m_boost_graph(new BoostSimpleGraph(m_size))
 {
 	const int n = 7;
 	const int x = NO_EDGE;
-	//                                    0  1  2  3  4  5  6
-	m_original_graph[0] = new Weight[n] { 0, 1, x, 1, 1, x, x };
-	m_original_graph[1] = new Weight[n] { 1, 0, 1, x, 1, x, x };
-	m_original_graph[2] = new Weight[n] { x, 1, 0, x, x, x, 1 };
-	m_original_graph[3] = new Weight[n] { 1, x, x, 0, 1, x, 1 };
-	m_original_graph[4] = new Weight[n] { 1, 1, x, 1, 0, 1, x };
-	m_original_graph[5] = new Weight[n] { x, x, x, x, 1, 0, x };
-	m_original_graph[6] = new Weight[n] { x, x, 1, 1, x, x, 0 };
+	//										   0  1  2  3  4  5  6
+	m_original_graph[0] = new zbp::weight[n] { 0, 1, x, 1, 1, x, x };
+	m_original_graph[1] = new zbp::weight[n] { 1, 0, 1, x, 1, x, x };
+	m_original_graph[2] = new zbp::weight[n] { x, 1, 0, x, x, x, 1 };
+	m_original_graph[3] = new zbp::weight[n] { 1, x, x, 0, 1, x, 1 };
+	m_original_graph[4] = new zbp::weight[n] { 1, 1, x, 1, 0, 1, x };
+	m_original_graph[5] = new zbp::weight[n] { x, x, x, x, 1, 0, x };
+	m_original_graph[6] = new zbp::weight[n] { x, x, 1, 1, x, x, 0 };
 
 	original_to_boost();
 }
 
 graph_generator::graph_generator(size_t size, int fill) :
-m_size(size), m_original_graph(new Weight*[m_size]), m_boost_graph(
+m_size(size), m_original_graph(new zbp::weight*[m_size]), m_boost_graph(
 new BoostSimpleGraph(m_size)) {
 	for (size_t i = 0; i < m_size; i++) {
-		m_original_graph[i] = new Weight[m_size];
+		m_original_graph[i] = new zbp::weight[m_size];
 		m_original_graph[i][i] = 0;
 		for (size_t j = 0; j < i; j++) {
 			bool is_connected = (rand() % 100) < fill;
@@ -101,7 +101,7 @@ void graph_generator::print() {
 	}
 }
 
-graph_generator::OriginalGraph graph_generator::original_graph() {
+zbp::distance_matrix graph_generator::original_graph() {
 	return m_original_graph;
 }
 

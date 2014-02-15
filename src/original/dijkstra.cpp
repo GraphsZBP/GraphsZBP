@@ -11,7 +11,7 @@
 /**
  * http://sun.aei.polsl.pl/~sdeor/students/aa/graf_dijkstra.pdf
  */
-bool dijkstra(graph_generator::OriginalGraph G, unsigned int source, size_t n, std::vector<double>& d) {
+bool dijkstra(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<double>& d) {
 	int u;
 	int min_d_in_q = INT_MAX;
 	
@@ -63,7 +63,7 @@ bool dijkstra(graph_generator::OriginalGraph G, unsigned int source, size_t n, s
 }
 
 void original_dijkstra(std::shared_ptr<graph_generator> graph) {
-	graph_generator::OriginalGraph G = graph->original_graph();
+	zbp::distance_matrix G = graph->original_graph();
 	std::vector<double> d;
 	dijkstra(G, 0, graph->size(), d);
 #ifdef _DEBUG

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <queue>
 
-void breadth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
+void breadth_first(zbp::distance_matrix G, bool *V, size_t n) {
   std::queue<int> kolejka;
   for (size_t i = 0; i < n; i++) {
     V[i] = false;

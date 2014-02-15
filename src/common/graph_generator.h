@@ -1,19 +1,16 @@
-#ifndef GRAPH_GENERATOR_H_
-#define GRAPH_GENERATOR_H_
+#pragma once
 
 #include <limits.h>
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/adjacency_list.hpp>
+#include "graph_types.h"
 
 class graph_generator {
-public:
-	// Nie mo¿e byæ 
-	typedef int Weight;
 private:
-	typedef boost::property<boost::edge_weight_t, Weight> WeightProperty;
+	typedef boost::property<boost::edge_weight_t, zbp::weight> WeightProperty;
+
 public:
 	typedef boost::adjacency_matrix<boost::undirectedS> BoostSimpleGraph;
-	typedef Weight** OriginalGraph;
 
 	typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
 		boost::no_property, WeightProperty> BoostWeightedGraph;
@@ -26,13 +23,10 @@ public:
 	typedef std::pair < int, int >Edge;
 
 private:
-	Edge* edge_array; // Wektor po³¹czeñ miêdzy wierzcho³kami (krawêdzi)
-	int* weights; // Wagi po³¹czeñ
-
-	static Weight MAX_WEIGHT;
+	static zbp::weight MAX_WEIGHT;
 
 	const size_t m_size;
-	OriginalGraph m_original_graph;
+	zbp::distance_matrix m_original_graph;
 	std::shared_ptr<BoostSimpleGraph> m_boost_graph;
 	BoostWeightedGraph m_boost_weighted_graph;
 	BoostWeightedDirectedGraph m_boost_weighted_directed_graph;
@@ -43,8 +37,8 @@ private:
 	void original_to_boost();
 
 public:
-	// INT_MAX nie dziala dla int Weight w vs2013?
-	const static Weight NO_EDGE = 9999;
+	// INT_MAX nie dziala dla Weight typu int w vs2013?
+	const static zbp::weight NO_EDGE = 9999;
 
 	graph_generator();
 	graph_generator(size_t size, int fill);
@@ -52,12 +46,10 @@ public:
 
 	void print();
 	const size_t size();
-	OriginalGraph original_graph();
+	zbp::distance_matrix original_graph();
 	std::shared_ptr<BoostSimpleGraph> boost_graph();
 	BoostSimpleGraph::vertex_descriptor boost_initial_vertex();
 	BoostWeightedGraph boost_weighted_graph();
 	BoostWeightedDirectedGraph boost_weighted_directed_graph();
 	BoostJohnsonGraph boost_johnson_graph();
 };
-
-#endif /* GRAPH_GENERATOR_H_ */

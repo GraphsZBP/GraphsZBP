@@ -4,10 +4,10 @@
 #include <iostream>
 #endif
 
-void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i,
+void depth_first_visit(zbp::distance_matrix G, bool *V, int i,
     size_t n);
 
-void depth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
+void depth_first(zbp::distance_matrix G, bool *V, size_t n) {
   size_t i;
   for (i = 0; i < n; i++) {
     V[i] = 0;
@@ -19,7 +19,7 @@ void depth_first(graph_generator::OriginalGraph G, bool *V, size_t n) {
   }
 }
 
-void depth_first_visit(graph_generator::OriginalGraph G, bool *V, int i,
+void depth_first_visit(zbp::distance_matrix G, bool *V, int i,
     size_t n) {
 #ifdef DEBUG
   std::cout << i << " ";

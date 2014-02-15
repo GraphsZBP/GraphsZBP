@@ -78,6 +78,9 @@
     <ClCompile Include="src\original\johnson.cpp">
       <Filter>Source Files\original</Filter>
     </ClCompile>
+    <ClCompile Include="src\common\AdjacencyList.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\boost\boost_floyd_warshall.h">
@@ -121,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="src\original\johnson.h">
       <Filter>Header Files\original</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\AdjacencyList.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\graph_types.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

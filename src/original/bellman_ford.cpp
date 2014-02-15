@@ -10,7 +10,7 @@
 /**
  * @return false w przypadku wykrycia ujemnego cyklu
  */
-bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t n, std::vector<double>& d) {
+bool bellman_ford(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<double>& d) {
 	d.clear();
 	std::vector<double> p;
 
@@ -26,7 +26,6 @@ bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t 
 		for (int u = 0; u < n; ++u) {
 			for (int v = 0; v < n; ++v) {
 				int edgeWeight = G[u][v];
-				//if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
 				if (edgeWeight != graph_generator::NO_EDGE) {
 					if (d[u] + edgeWeight < d[v]) {
 						d[v] = d[u] + edgeWeight;
@@ -41,7 +40,6 @@ bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t 
 	for (int u = 0; u < n; ++u) {
 		for (int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			//if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) 
 			if (edgeWeight != graph_generator::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d.clear();
@@ -54,7 +52,7 @@ bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t 
 }
 
 void original_bellman_ford(std::shared_ptr<graph_generator> graph) {
-	graph_generator::OriginalGraph G = graph->original_graph();
+	zbp::distance_matrix G = graph->original_graph();
 	std::vector<double> d;
 	bellman_ford(G, 0, graph->size(), d);
 #ifdef _DEBUG

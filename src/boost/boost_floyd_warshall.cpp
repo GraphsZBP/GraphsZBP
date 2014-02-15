@@ -7,7 +7,7 @@
 #include <boost/graph/floyd_warshall_shortest.hpp>
 
 void boost_floyd_warshall(std::shared_ptr<graph_generator> graph) {
-  typedef boost::multi_array<graph_generator::Weight, 2> array_type;
+  typedef boost::multi_array<zbp::weight, 2> array_type;
   array_type D(boost::extents[graph->size()][graph->size()]);
 
   boost::floyd_warshall_all_pairs_shortest_paths(graph->boost_weighted_graph(),

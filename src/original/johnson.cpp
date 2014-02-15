@@ -9,7 +9,7 @@
 #include <queue>
 #endif
 
-bool johnson(graph_generator::OriginalGraph G, unsigned int source, size_t n, std::vector<std::vector<double>>& d) {
+bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<std::vector<double>>& d) {
 	
 	// Krok 0: Inicjalizacja zmiennych
 	d.clear();
@@ -19,12 +19,12 @@ bool johnson(graph_generator::OriginalGraph G, unsigned int source, size_t n, st
 	// z wagami 0 do kazdego wierzcholka
 	size_t G2_size = n + 1;
 	// TODO enkapsulacja
-	graph_generator::OriginalGraph G2 = new graph_generator::Weight*[G2_size];
-	graph_generator::Weight* s = new graph_generator::Weight[G2_size] {};
+	zbp::distance_matrix G2 = new zbp::weight*[G2_size];
+	zbp::weight* s = new zbp::weight[G2_size] {};
 	G2[0] = s;
 
 	for (int i = 0; i < n; ++i) {
-		G2[i + 1] = new graph_generator::Weight[G2_size];
+		G2[i + 1] = new zbp::weight[G2_size];
 		for (int j = 0; j < n; j++)
 			G2[i + 1][j + 1] = G[i][j];
 		// Do wierzcholka S nie wchodzi zadna krawedz
@@ -59,7 +59,7 @@ bool johnson(graph_generator::OriginalGraph G, unsigned int source, size_t n, st
 }
 
 void original_johnson(std::shared_ptr<graph_generator> graph) {
-	graph_generator::OriginalGraph G = graph->original_graph();
+	zbp::distance_matrix G = graph->original_graph();
 	std::vector<std::vector<double>> d;
 	johnson(G, 0, graph->size(), d);
 #ifdef _DEBUG
