@@ -16,6 +16,7 @@
 #include "boost/boost_johnson.h"
 #include "original/bellman_ford.h"
 #include "original/dijkstra.h"
+#include "original/johnson.h"
 
 void test(const std::shared_ptr<graph_generator>& graph) {
   double duration;
@@ -51,8 +52,8 @@ void test(const std::shared_ptr<graph_generator>& graph) {
   std::cout << std::endl << duration << std::endl;
 
   std::cout << "Johnson" << std::endl;
-  //duration = measure(&, graph);
-  //std::cout << std::endl << duration << std::endl;
+  duration = measure(&original_johnson, graph);
+  std::cout << std::endl << duration << std::endl;
   duration = measure(boost_johnson, graph);
   std::cout << std::endl << duration << std::endl;
 }

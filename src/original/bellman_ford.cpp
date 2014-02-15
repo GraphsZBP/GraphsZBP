@@ -26,7 +26,8 @@ bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t 
 		for (int u = 0; u < n; ++u) {
 			for (int v = 0; v < n; ++v) {
 				int edgeWeight = G[u][v];
-				if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
+				//if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
+				if (edgeWeight != graph_generator::NO_EDGE) {
 					if (d[u] + edgeWeight < d[v]) {
 						d[v] = d[u] + edgeWeight;
 						p[v] = u;
@@ -40,7 +41,8 @@ bool bellman_ford(graph_generator::OriginalGraph G, unsigned int source, size_t 
 	for (int u = 0; u < n; ++u) {
 		for (int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
+			//if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) 
+			if (edgeWeight != graph_generator::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d.clear();
 					false;

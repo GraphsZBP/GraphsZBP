@@ -11,7 +11,7 @@ m_size(7), m_original_graph(new Weight*[m_size]),
 m_boost_graph(new BoostSimpleGraph(m_size))
 {
 	const int n = 7;
-	const unsigned int x = NO_EDGE;
+	const int x = NO_EDGE;
 	//                                    0  1  2  3  4  5  6
 	m_original_graph[0] = new Weight[n] { 0, 1, x, 1, 1, x, x };
 	m_original_graph[1] = new Weight[n] { 1, 0, 1, x, 1, x, x };

@@ -7,7 +7,8 @@
 
 class graph_generator {
 public:
-	typedef unsigned int Weight;
+	// Nie mo¿e byæ 
+	typedef int Weight;
 private:
 	typedef boost::property<boost::edge_weight_t, Weight> WeightProperty;
 public:
@@ -42,7 +43,8 @@ private:
 	void original_to_boost();
 
 public:
-	const static Weight NO_EDGE = INT_MAX;
+	// INT_MAX nie dziala dla int Weight w vs2013?
+	const static Weight NO_EDGE = 9999;
 
 	graph_generator();
 	graph_generator(size_t size, int fill);

@@ -11,11 +11,10 @@
 /**
  * http://sun.aei.polsl.pl/~sdeor/students/aa/graf_dijkstra.pdf
  */
-std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int source, size_t n) {
+bool dijkstra(graph_generator::OriginalGraph G, unsigned int source, size_t n, std::vector<double>& d) {
 	int u;
 	int min_d_in_q = INT_MAX;
 	
-	std::vector<double> d;
 	std::vector<double> p;
 	std::set<int> S;
 	std::set<int> Q;
@@ -52,7 +51,7 @@ std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int sou
 		// for lista wierzcho³ków v s¹siaduj¹cych z u -> relaksacja
 		for (unsigned int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			if (edgeWeight != 0 && edgeWeight != graph_generator::NO_EDGE) {
+			if (edgeWeight != graph_generator::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d[v] = d[u] + edgeWeight;
 					p[v] = u;
@@ -60,13 +59,13 @@ std::vector<double> dijkstra(graph_generator::OriginalGraph G,  unsigned int sou
 			}
 		}
 	}
-	return d;
+	return true;
 }
 
 void original_dijkstra(std::shared_ptr<graph_generator> graph) {
 	graph_generator::OriginalGraph G = graph->original_graph();
-	
-	std::vector<double> d = dijkstra(G, 0, graph->size());
+	std::vector<double> d;
+	dijkstra(G, 0, graph->size(), d);
 #ifdef _DEBUG
 	for(int i = 0; i < d.size(); ++i) {
 		std::cout << 0 << " --> " << i << " : " << d[i] << std::endl;
