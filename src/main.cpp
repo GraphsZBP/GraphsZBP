@@ -76,7 +76,7 @@ int main() {
    */
   size_t sizes[] = { 1000, 2000, 5000 };
   size_t sizes_length = sizeof(sizes) / sizeof(size_t);
-  size_t samples_count = 30;
+  size_t samples_count = 5;
 
   SizesWithGraphs fill_100_graphs = create_filled_graphs_for_sizes(sizes, sizes_length, samples_count, 100);
   SizesWithGraphs fill_90_graphs = create_filled_graphs_for_sizes(sizes, sizes_length, samples_count, 40);
