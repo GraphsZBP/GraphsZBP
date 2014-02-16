@@ -34,5 +34,10 @@ void original_breadth_first(std::shared_ptr<graph_generator> graph) {
   bool *V = new bool[graph->size()];
 
   breadth_first(graph->original_graph(), V, graph->size());
+
+#ifdef DEBUG
+  std::cout << std::endl;
+#endif
+
   delete[] V;
 }

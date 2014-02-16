@@ -10,7 +10,7 @@
 using namespace boost;
 
 void boost_bellman_ford(std::shared_ptr<graph_generator> graph) {
-  graph_generator::BoostWeightedGraph g = graph->boost_weighted_graph();
+  graph_generator::BoostWeightedGraph g = *graph->boost_weighted_graph();
   typedef graph_traits<graph_generator::BoostWeightedGraph>::vertex_descriptor vertex_descriptor;
   std::vector<vertex_descriptor> parent(num_vertices(g));
   std::vector<int> distance(num_vertices(g), zbp::NO_EDGE);
@@ -18,7 +18,7 @@ void boost_bellman_ford(std::shared_ptr<graph_generator> graph) {
 
   bellman_ford_shortest_paths(g, distance_map(&distance[0]).predecessor_map(&parent[0]));
 
-#ifdef _DEBUG
+#ifdef DEBUG
   std::cout << "distances and parents:" << std::endl;
   graph_traits<graph_generator::BoostWeightedGraph>::vertex_iterator vi, vend;
   for (tie(vi, vend) = vertices(g); vi != vend; ++vi) {

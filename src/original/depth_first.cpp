@@ -38,5 +38,10 @@ void original_depth_first(std::shared_ptr<graph_generator> graph) {
   bool *V = new bool[graph->size()];
 
   depth_first(graph->original_graph(), V, graph->size());
+
+#ifdef DEBUG
+  std::cout << std::endl;
+#endif
+
   delete[] V;
 }

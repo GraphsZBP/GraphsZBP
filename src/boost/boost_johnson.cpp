@@ -19,7 +19,7 @@
 using namespace boost;
 
 void boost_johnson(std::shared_ptr<graph_generator> graph) {
-	graph_generator::BoostJohnsonGraph g = graph->boost_johnson_graph();
+	graph_generator::BoostJohnsonGraph g = *graph->boost_johnson_graph();
 	int V = num_vertices(g);
 	std::vector<int> d(V, (std::numeric_limits < int >::max)());
 	int** D = new int*[V];
@@ -29,7 +29,7 @@ void boost_johnson(std::shared_ptr<graph_generator> graph) {
 	}
 	johnson_all_pairs_shortest_paths(g, D, distance_map(&d[0]));
 
-#ifdef _DEBUG
+#ifdef DEBUG
   std::cout << "       ";
 	for (int k = 0; k < V; ++k)
 		std::cout << std::setw(5) << k;

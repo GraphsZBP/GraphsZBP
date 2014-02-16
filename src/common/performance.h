@@ -5,23 +5,19 @@
 #include <boost/function.hpp>
 
 #include "graph_generator.h"
+#include "measurable.h"
 
 struct PerformanceResult {
 
-  double depth_first;
-  double breadth_first;
-  double floyd_warshall;
-  double bellman_ford;
-  double dijkstra;
-  double johnson;
+  double original_duration;
+  double boost_duration;
+
+  unsigned int original_memory;
+  unsigned int boost_memory;
 };
 
-typedef boost::function<std::shared_ptr<graph_generator>(unsigned int)> GraphProvider;
-typedef boost::function<PerformanceResult(std::shared_ptr<graph_generator>)> PerformanceMeasurer;
 typedef std::vector<std::shared_ptr<graph_generator>> GraphsCollection;
 
-PerformanceResult measure_original_performance(const std::shared_ptr<graph_generator> graph);
-PerformanceResult measure_boost_performance(const std::shared_ptr<graph_generator> graph);
-PerformanceResult average_results(std::vector<PerformanceResult> test_results);
+PerformanceResult measure_performance(GraphsCollection graphs, MeasurableGraphFunction original_fcn, MeasurableGraphFunction boost_fcn);
 
 #endif /* PERFORMANCE_H_ */

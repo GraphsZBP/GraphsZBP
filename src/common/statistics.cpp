@@ -1,43 +1,54 @@
 #include "statistics.h"
 
-GraphsCollection generate_random_graphs(unsigned int repeats, int size, int fill) {
-  GraphsCollection graphs(repeats);
+typedef std::map<unsigned int, PerformanceResult> Statistics;
 
-  for (unsigned int i = 0; i < repeats; ++i) {
-    graph_generator* random_generator = new graph_generator(size, fill);
-    graphs[i] = std::shared_ptr<graph_generator>(random_generator);
-  }
+Statistics gather_statistics(SizesWithGraphs graphs, MeasurableGraphFunction original_fcn, MeasurableGraphFunction boost_fcn) {
+  Statistics results;
 
-  return graphs;
-}
-
-Statistics gather_statistics(unsigned int repeats, const GraphsCollection& graphs, int size) {
-  std::vector<PerformanceResult> original_results(repeats);
-  std::vector<PerformanceResult> boost_results(repeats);
-
-  for (unsigned int i = 0; i < repeats; ++i) {
-    original_results[i] = measure_original_performance(graphs[i]);
-    boost_results[i] = measure_boost_performance(graphs[i]);
-  }
-
-  Statistics statistics;
-  statistics.size = size;
-  statistics.original_result = average_results(original_results);
-  statistics.boost_result = average_results(boost_results);
-
-  return statistics;
-}
-
-std::vector<Statistics> run_90_fill_tests() {
-  unsigned int samples_count = 3;
-  int sizes[] = { 10, 20, 30 };
-  int fill = 90;
-  
-  std::vector<Statistics> results(sizeof(sizes));
-  for (unsigned int i = 0; i < sizeof(sizes); ++i) {
-    GraphsCollection graphs = generate_random_graphs(samples_count, sizes[i], fill);
-    results[i] = gather_statistics(samples_count, graphs, sizes[i]);
+  for (SizesWithGraphs::iterator it = graphs.begin(); it != graphs.end(); ++it) {
+    results[it->first] = measure_performance(it->second, original_fcn, boost_fcn);
   }
 
   return results;
+}
+
+std::string statistics_to_csv(size_t sizes[], size_t sizes_length, std::vector<Statistics> statistics) {
+  std::ostringstream result;
+  result.precision(4);
+  result << std::fixed;
+
+  for (size_t i = 0; i < sizes_length; ++i) {
+    result << sizes[i] << ",";
+    for (std::vector<Statistics>::iterator it = statistics.begin(); it != statistics.end(); ++it) {
+      result << (*it)[sizes[i]].original_duration << "," << (*it)[sizes[i]].boost_duration << ",";
+    }
+    for (std::vector<Statistics>::iterator it = statistics.begin(); it != statistics.end(); ++it) {
+      result << (*it)[sizes[i]].original_memory << "," << (*it)[sizes[i]].boost_memory << ",";
+    }
+    result << std::endl;
+  }
+
+  return result.str();
+}
+
+void run_benchmark(const char* title, MeasurableGraphFunction original_fcn, MeasurableGraphFunction boost_fcn,
+    SizesWithGraphs fill_100_graphs, SizesWithGraphs fill_90_graphs, SizesWithGraphs map_graphs, size_t sizes[],
+    size_t sizes_length) {
+  std::vector<Statistics> statistics(3);
+
+  std::cout << title << std::endl;
+
+  statistics[0] = gather_statistics(fill_100_graphs, original_fcn, boost_fcn);
+  statistics[1] = gather_statistics(fill_90_graphs, original_fcn, boost_fcn);
+  statistics[2] = gather_statistics(map_graphs, original_fcn, boost_fcn);
+
+  std::cout << "Rozmiar,"
+      "Original - 100% wype³nienia,Boost - 100% wype³nienia,"
+      "Original - 90% wype³nienia,Boost - 90% wype³nienia,"
+      "Original - mapa,Boost - mapa,"
+      "Original - 100% wype³nienia - pamiêæ,Boost - 100% wype³nienia - pamiêæ,"
+      "Original - 90% wype³nienia - pamiêæ,Boost - 90% wype³nienia - pamiêæ,"
+      "Original - mapa - pamiêæ,Boost - mapa - pamiêæ," << std::endl;
+
+  std::cout << statistics_to_csv(sizes, sizes_length, statistics);
 }
