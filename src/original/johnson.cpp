@@ -23,12 +23,12 @@ bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<
 	zbp::weight* s = new zbp::weight[G2_size] {};
 	G2[0] = s;
 
-	for (int i = 0; i < n; ++i) {
+	for (unsigned int i = 0; i < n; ++i) {
 		G2[i + 1] = new zbp::weight[G2_size];
-		for (int j = 0; j < n; j++)
+		for (unsigned int j = 0; j < n; j++)
 			G2[i + 1][j + 1] = G[i][j];
 		// Do wierzcholka S nie wchodzi zadna krawedz
-		G2[i + 1][0] = graph_generator::NO_EDGE; 
+		G2[i + 1][0] = zbp::NO_EDGE;
 	}
 
 	// Krok 2: sprawdzenie wystepowania ujemnych cykli
@@ -36,21 +36,21 @@ bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<
 		return false;
 
 	// Krok 3: nadanie nieujemnych wartosci krawedzi w grafie G
-	for (int u = 0; u < n; ++u) {
-		for (int v = 0; v < n; ++v) {
+	for (unsigned int u = 0; u < n; ++u) {
+		for (unsigned int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			if (edgeWeight != graph_generator::NO_EDGE) {
+			if (edgeWeight != zbp::NO_EDGE) {
 				G[u][v] = G[u][v] + h[u + 1] - h[v + 1]; // +1 z uwagi na dodany wierzcholek S w G2
 			}
 		}
 	}
 
 	// Krok 4: obliczenie wartosci macierzy d
-	for (int u = 0; u < n; ++u) {
+	for (unsigned int u = 0; u < n; ++u) {
 		std::vector<double> k;
 		d.push_back(k);
 		dijkstra(G, u, n, d[u]);
-		for (int v = 0; v < n; ++v) {
+		for (unsigned int v = 0; v < n; ++v) {
 			d[u][v] = d[u][v] + h[v + 1] - h[u + 1];
 		}
 	}

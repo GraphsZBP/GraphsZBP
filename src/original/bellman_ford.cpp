@@ -15,18 +15,18 @@ bool bellman_ford(zbp::distance_matrix G, unsigned int source, size_t n, std::ve
 	std::vector<double> p;
 
 	// Krok 1:Inicjalizacja zmiennych
-	for (int i = 0; i < n; ++i) {
+	for (unsigned int i = 0; i < n; ++i) {
 		d.push_back(INT_MAX);
 		p.push_back(0);
 	}
 	d[source] = 0;
 
 	// Krok 2: powtórna relaksacja
-	for (int i = 1; i < n; ++i) {
-		for (int u = 0; u < n; ++u) {
-			for (int v = 0; v < n; ++v) {
+	for (unsigned int i = 1; i < n; ++i) {
+		for (unsigned int u = 0; u < n; ++u) {
+			for (unsigned int v = 0; v < n; ++v) {
 				int edgeWeight = G[u][v];
-				if (edgeWeight != graph_generator::NO_EDGE) {
+				if (edgeWeight != zbp::NO_EDGE) {
 					if (d[u] + edgeWeight < d[v]) {
 						d[v] = d[u] + edgeWeight;
 						p[v] = u;
@@ -37,13 +37,13 @@ bool bellman_ford(zbp::distance_matrix G, unsigned int source, size_t n, std::ve
 	}
 
 	// Krok 3: sprawdzanie wyst¹pieñ ujemnych cykli
-	for (int u = 0; u < n; ++u) {
-		for (int v = 0; v < n; ++v) {
+	for (unsigned int u = 0; u < n; ++u) {
+		for (unsigned int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			if (edgeWeight != graph_generator::NO_EDGE) {
+			if (edgeWeight != zbp::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d.clear();
-					false;
+					return false;
 				}
 			}
 		}

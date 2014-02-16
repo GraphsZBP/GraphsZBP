@@ -20,7 +20,7 @@ bool dijkstra(zbp::distance_matrix G, unsigned int source, size_t n, std::vector
 	std::set<int> Q;
 
 	// Inicjalizacja zmiennych
-	for (int i = 0; i < n; ++i) {
+	for (unsigned int i = 0; i < n; ++i) {
 		d.push_back(INT_MAX);
 		p.push_back(0);
 		Q.insert(i);
@@ -51,7 +51,7 @@ bool dijkstra(zbp::distance_matrix G, unsigned int source, size_t n, std::vector
 		// for lista wierzcho³ków v s¹siaduj¹cych z u -> relaksacja
 		for (unsigned int v = 0; v < n; ++v) {
 			int edgeWeight = G[u][v];
-			if (edgeWeight != graph_generator::NO_EDGE) {
+			if (edgeWeight != zbp::NO_EDGE) {
 				if (d[u] + edgeWeight < d[v]) {
 					d[v] = d[u] + edgeWeight;
 					p[v] = u;

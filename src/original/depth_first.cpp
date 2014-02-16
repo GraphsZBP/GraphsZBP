@@ -26,7 +26,7 @@ void depth_first_visit(zbp::distance_matrix G, bool *V, int i,
 #endif
   V[i] = 1;
   for (size_t k = 0; k < n; k++) {
-    if (G[i][k] != graph_generator::NO_EDGE) {
+    if (G[i][k] != zbp::NO_EDGE) {
       if (V[k] == 0) {
         depth_first_visit(G, V, k, n);
       }
@@ -34,7 +34,7 @@ void depth_first_visit(zbp::distance_matrix G, bool *V, int i,
   }
 }
 
-void original_depth_first_sample(std::shared_ptr<graph_generator> graph) {
+void original_depth_first(std::shared_ptr<graph_generator> graph) {
   bool *V = new bool[graph->size()];
 
   depth_first(graph->original_graph(), V, graph->size());

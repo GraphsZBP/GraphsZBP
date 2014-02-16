@@ -11,7 +11,7 @@ m_size(7), m_original_graph(new zbp::weight*[m_size]),
 m_boost_graph(new BoostSimpleGraph(m_size))
 {
 	const int n = 7;
-	const int x = NO_EDGE;
+	const zbp::weight x = zbp::NO_EDGE;
 	//										   0  1  2  3  4  5  6
 	m_original_graph[0] = new zbp::weight[n] { 0, 1, x, 1, 1, x, x };
 	m_original_graph[1] = new zbp::weight[n] { 1, 0, 1, x, 1, x, x };
@@ -32,7 +32,7 @@ new BoostSimpleGraph(m_size)) {
 		m_original_graph[i][i] = 0;
 		for (size_t j = 0; j < i; j++) {
 			bool is_connected = (rand() % 100) < fill;
-			m_original_graph[i][j] = m_original_graph[j][i] = is_connected ? (rand() % MAX_WEIGHT) : NO_EDGE;
+			m_original_graph[i][j] = m_original_graph[j][i] = is_connected ? (rand() % MAX_WEIGHT) : zbp::NO_EDGE;
 		}
 	}
 
@@ -66,7 +66,7 @@ void graph_generator::original_to_boost() {
 
 	for (size_t i = 0; i < m_size; i++) {
 		for (size_t j = 0; j < i; j++) {
-			if (m_original_graph[i][j] != NO_EDGE) {
+			if (m_original_graph[i][j] != zbp::NO_EDGE) {
 				boost::add_edge(i, j, *m_boost_graph);
 
 				u = boost::vertex(i, m_boost_weighted_graph);

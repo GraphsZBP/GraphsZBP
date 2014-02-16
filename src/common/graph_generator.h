@@ -37,9 +37,6 @@ private:
 	void original_to_boost();
 
 public:
-	// INT_MAX nie dziala dla Weight typu int w vs2013?
-	const static zbp::weight NO_EDGE = 9999;
-
 	graph_generator();
 	graph_generator(size_t size, int fill);
 	~graph_generator();

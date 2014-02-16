@@ -23,7 +23,7 @@ void original_floyd_warshall(std::shared_ptr<graph_generator> graph) {
 #ifdef DEBUG
   for (size_t i = 0; i < graph->size(); i++) {
     for (size_t j = 0; j < graph->size(); j++) {
-      if (G[i][j] == graph_generator::NO_EDGE) {
+      if (G[i][j] == zbp::NO_EDGE) {
         std::cout << i << " --> " << j << ": brak" << std::endl;
       } else {
         std::cout << i << " --> " << j << ": " << G[i][j] << std::endl;
