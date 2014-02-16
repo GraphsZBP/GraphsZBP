@@ -37,6 +37,14 @@ void measure_boost_simple_memory(std::shared_ptr<graph_generator> graph) {
   graph->boost_graph();
 }
 
+void measure_boost_weighted_graph(std::shared_ptr<graph_generator> graph) {
+  graph->boost_weighted_graph();
+}
+
+void measure_boost_johnson_graph(std::shared_ptr<graph_generator> graph) {
+  graph->boost_johnson_graph();
+}
+
 Measurable::Measurable(GraphFunction duration_fcn, GraphFunction memory_fcn) :
     duration_fcn(duration_fcn), memory_fcn(memory_fcn) {
 }
@@ -56,4 +64,12 @@ OriginalMeasurable::OriginalMeasurable(GraphFunction duration_fcn) :
 
 BoostSimpleMeasurable::BoostSimpleMeasurable(GraphFunction duration_fcn) :
     Measurable(duration_fcn, measure_boost_simple_memory) {
+}
+
+BoostWeightedGraphMeasurable::BoostWeightedGraphMeasurable(GraphFunction duration_fcn) :
+    Measurable(duration_fcn, measure_boost_weighted_graph) {
+}
+
+BoostJohnsonGraphMeasurable::BoostJohnsonGraphMeasurable(GraphFunction duration_fcn) :
+    Measurable(duration_fcn, measure_boost_johnson_graph) {
 }

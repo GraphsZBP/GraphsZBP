@@ -36,6 +36,18 @@ public:
   BoostSimpleMeasurable(GraphFunction duration_fcn);
 };
 
+class BoostWeightedGraphMeasurable: public Measurable {
+
+public:
+  BoostWeightedGraphMeasurable(GraphFunction duration_fcn);
+};
+
+class BoostJohnsonGraphMeasurable: public Measurable {
+
+public:
+  BoostJohnsonGraphMeasurable(GraphFunction duration_fcn);
+};
+
 typedef boost::function<Measurement(std::shared_ptr<graph_generator>)> MeasurableGraphFunction;
 
 #endif /* MEASURABLE_H */
