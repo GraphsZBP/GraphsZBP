@@ -1,23 +1,17 @@
 #include "performance.h"
 
-void track_tests() {
-  static int tests_performed = 0;
-
-  std::cout << "." << std::flush;
-  if (tests_performed++ == 80) {
-    tests_performed = 0;
-    std::cout << std::endl;
-  }
-}
-
 PerformanceResult measure_performance(GraphsCollection graphs, MeasurableGraphFunction original_fcn,
     MeasurableGraphFunction boost_fcn) {
+  int tests_performed = 0;
+
   double original_duration = 0;
   double boost_duration = 0;
   unsigned long original_memory = 0;
   unsigned long boost_memory = 0;
 
   for (unsigned int i = 0; i < graphs.size(); ++i) {
+    graphs[i]->reset();
+
     Measurement original_measurement = original_fcn(graphs[i]);
     Measurement boost_measurement = boost_fcn(graphs[i]);
 
@@ -28,7 +22,11 @@ PerformanceResult measure_performance(GraphsCollection graphs, MeasurableGraphFu
 
     graphs[i]->reset();
 
-    track_tests();
+    std::cout << "." << std::flush;
+    if (tests_performed++ == 80) {
+      tests_performed = 0;
+      std::cout << std::endl;
+    }
   }
 
   PerformanceResult result;

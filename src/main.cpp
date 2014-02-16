@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #include "common/graph_generator.h"
-#include "common/random_graph_providers.h"
 #include "common/statistics.h"
 #include "common/measurable.h"
 #include "original/depth_first.h"
@@ -74,16 +73,17 @@ int main() {
    //random_generator->print();
    test(random_graph);
    */
-  size_t sizes[] = { 1000, 2000, 5000 };
-  size_t sizes_length = sizeof(sizes) / sizeof(size_t);
-  size_t samples_count = 5;
+  size_t small[] = { 100, 200, 500 };
+  size_t medium[] = { 500, 750, 1000 };
+  size_t large[] = { 1000, 2000, 5000 };
+  size_t sizes_length = sizeof(medium) / sizeof(size_t);
 
-  SizesWithGraphs fill_100_graphs = create_filled_graphs_for_sizes(sizes, sizes_length, samples_count, 100);
-  SizesWithGraphs fill_90_graphs = create_filled_graphs_for_sizes(sizes, sizes_length, samples_count, 40);
-  SizesWithGraphs map_graphs = create_filled_graphs_for_sizes(sizes, sizes_length, samples_count, 100); // TODO
-
-  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first_sample), fill_100_graphs, fill_90_graphs,
-      map_graphs, sizes, sizes_length);
+  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first), large, sizes_length);
+  run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first), large, sizes_length);
+  run_benchmark("Floyd-Warshall", OriginalMeasurable(original_floyd_warshall), BoostWeightedGraphMeasurable(boost_floyd_warshall), small, sizes_length);
+  run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium, sizes_length);
+  run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford), BoostWeightedGraphMeasurable(boost_bellman_ford), medium, sizes_length);
+  run_benchmark("Johnson", OriginalMeasurable(original_johnson), BoostJohnsonGraphMeasurable(boost_johnson), small, sizes_length);
 
   //system("pause");
   return EXIT_SUCCESS;
