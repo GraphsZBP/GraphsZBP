@@ -41,12 +41,10 @@ unsigned long Measurable::measure_memory(std::shared_ptr<graph_generator> graph)
   statex.dwLength = sizeof(statex);
 
   GlobalMemoryStatusEx(&statex);
-  std::cout << statex.ullAvailPhys / DIV << std::endl;
   unsigned long start_free_memory = statex.ullAvailPhys / DIV;
   memory_fcn(graph);
 
   GlobalMemoryStatusEx(&statex);
-  std::cout << statex.ullAvailPhys / DIV << std::endl;
 
   return start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
 }

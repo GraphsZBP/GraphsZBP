@@ -47,8 +47,6 @@ void graph_generator::print() {
 
 zbp::distance_matrix graph_generator::original_graph() {
   if (m_original_graph == NULL) {
-    std::cout << "A";
-    sleep(15);
     m_original_graph = new zbp::weight*[m_size];
     for (size_t i = 0; i < m_size; i++) {
       m_original_graph[i] = new zbp::weight[m_size];

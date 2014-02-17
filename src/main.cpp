@@ -25,12 +25,18 @@ void general_duration_benchmark() {
   size_t large[] = { 1000, 2000, 5000 };
   size_t sizes_length = sizeof(medium) / sizeof(size_t);
 
-  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first), large, sizes_length);
-  run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first), large, sizes_length);
-  run_benchmark("Floyd-Warshall", OriginalMeasurable(original_floyd_warshall), BoostWeightedGraphMeasurable(boost_floyd_warshall), small, sizes_length);
-  run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium, sizes_length);
-  run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford), BoostWeightedGraphMeasurable(boost_bellman_ford), medium, sizes_length);
-  run_benchmark("Johnson", OriginalMeasurable(original_johnson), BoostJohnsonGraphMeasurable(boost_johnson), small, sizes_length);
+  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first),
+      large, sizes_length);
+  run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first),
+      large, sizes_length);
+  run_benchmark("Floyd-Warshall", OriginalMeasurable(original_floyd_warshall),
+      BoostWeightedGraphMeasurable(boost_floyd_warshall), small, sizes_length);
+  run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium,
+      sizes_length);
+  run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford),
+      BoostWeightedGraphMeasurable(boost_bellman_ford), medium, sizes_length);
+  run_benchmark("Johnson", OriginalMeasurable(original_johnson), BoostJohnsonGraphMeasurable(boost_johnson), small,
+      sizes_length);
 }
 
 void general_memory_benchmark() {
@@ -81,8 +87,39 @@ void general_memory_benchmark() {
 //  std::cout << std::endl << "Boost: " << duration << std::endl;
 //}
 
-int main() {
+int main(int argc, char **argv) {
   srand(static_cast<unsigned int>(time(NULL)));
+
+  if (argc == 4) {
+    graph_generator* random_generator;
+    if (argv[3][0] == 'm') {
+      random_generator = NULL; // TODO mapa
+    } else {
+      random_generator = new graph_generator(atoi(argv[2]), atoi(argv[3]));
+    }
+
+    std::shared_ptr<graph_generator> graph(random_generator);
+
+    switch (argv[1][0]) {
+    case 'o':
+      std::cout << OriginalMeasurable(original_breadth_first).measure_memory(graph);
+      break;
+    case 's':
+      graph->original_graph();
+      std::cout << BoostSimpleMeasurable(original_breadth_first).measure_memory(graph);
+      break;
+    case 'w':
+      graph->original_graph();
+      std::cout << BoostWeightedGraphMeasurable(original_breadth_first).measure_memory(graph);
+      break;
+    case 'j':
+      graph->original_graph();
+      std::cout << BoostJohnsonGraphMeasurable(original_breadth_first).measure_memory(graph);
+      break;
+    }
+  } else {
+    general_duration_benchmark();
+  }
 
   /*  graph_generator *generator = new graph_generator();
    std::shared_ptr<graph_generator> graph(generator);
@@ -95,8 +132,6 @@ int main() {
    //random_generator->print();
    test(random_graph);
    */
-  //general_duration_benchmark();
-  general_memory_benchmark();
-  //system("pause");
+//system("pause");
   return EXIT_SUCCESS;
 }
