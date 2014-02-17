@@ -4,31 +4,6 @@
 #include <algorithm>
 #include <windows.h>
 
-double measure_duration(GraphFunction duration_fcn, std::shared_ptr<graph_generator> graph) {
-  using namespace std::chrono;
-  high_resolution_clock::time_point begin = high_resolution_clock::now();
-
-  duration_fcn(graph);
-
-  duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - begin);
-  return time_span.count();
-}
-
-unsigned long measure_memory(GraphFunction memory_fcn, std::shared_ptr<graph_generator> graph) {
-  const int DIV = 1024;
-
-  MEMORYSTATUSEX statex;
-  statex.dwLength = sizeof(statex);
-
-  GlobalMemoryStatusEx(&statex);
-  unsigned long start_free_memory = statex.ullAvailPhys / DIV;
-  memory_fcn(graph);
-
-  GlobalMemoryStatusEx(&statex);
-
-  return start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
-}
-
 void measure_original_memory(std::shared_ptr<graph_generator> graph) {
   graph->original_graph();
 }
@@ -49,13 +24,31 @@ Measurable::Measurable(GraphFunction duration_fcn, GraphFunction memory_fcn) :
     duration_fcn(duration_fcn), memory_fcn(memory_fcn) {
 }
 
-Measurement Measurable::operator ()(std::shared_ptr<graph_generator> graph) {
-  Measurement measurement;
+double Measurable::measure_duration(std::shared_ptr<graph_generator> graph) {
+  using namespace std::chrono;
+  high_resolution_clock::time_point begin = high_resolution_clock::now();
 
-  measurement.memory = measure_memory(memory_fcn, graph);
-  measurement.duration = measure_duration(duration_fcn, graph);
+  duration_fcn(graph);
 
-  return measurement;
+  duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - begin);
+  return time_span.count();
+}
+
+unsigned long Measurable::measure_memory(std::shared_ptr<graph_generator> graph) {
+  const int DIV = 1024;
+
+  MEMORYSTATUSEX statex;
+  statex.dwLength = sizeof(statex);
+
+  GlobalMemoryStatusEx(&statex);
+  std::cout << statex.ullAvailPhys / DIV << std::endl;
+  unsigned long start_free_memory = statex.ullAvailPhys / DIV;
+  memory_fcn(graph);
+
+  GlobalMemoryStatusEx(&statex);
+  std::cout << statex.ullAvailPhys / DIV << std::endl;
+
+  return start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
 }
 
 OriginalMeasurable::OriginalMeasurable(GraphFunction duration_fcn) :
@@ -73,3 +66,4 @@ BoostWeightedGraphMeasurable::BoostWeightedGraphMeasurable(GraphFunction duratio
 BoostJohnsonGraphMeasurable::BoostJohnsonGraphMeasurable(GraphFunction duration_fcn) :
     Measurable(duration_fcn, measure_boost_johnson_graph) {
 }
+

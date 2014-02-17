@@ -7,7 +7,7 @@
 #include "graph_generator.h"
 #include "measurable.h"
 
-struct PerformanceResult {
+struct DurationPerformanceResult {
 
   double original_duration;
   double boost_duration;
@@ -16,8 +16,17 @@ struct PerformanceResult {
   unsigned int boost_memory;
 };
 
+struct MemoryPerformanceResult {
+
+  unsigned long original_memory;
+  unsigned long boost_simple_memory;
+  unsigned long boost_weighed_memory;
+  unsigned long boost_johnson_memory;
+};
+
 typedef std::vector<std::shared_ptr<graph_generator>> GraphsCollection;
 
-PerformanceResult measure_performance(GraphsCollection graphs, MeasurableGraphFunction original_fcn, MeasurableGraphFunction boost_fcn);
+DurationPerformanceResult measure_performance(GraphsCollection graphs, Measurable original_fcn, Measurable boost_fcn);
+MemoryPerformanceResult measure_memory_performance(GraphsCollection graphs);
 
 #endif /* PERFORMANCE_H_ */

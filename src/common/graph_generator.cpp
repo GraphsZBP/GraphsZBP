@@ -33,7 +33,7 @@ size_t graph_generator::generate_edge_number(size_t i) {
 }
 
 graph_generator::~graph_generator() {
-  reset();
+  free_all_memory();
 }
 
 void graph_generator::print() {
@@ -47,6 +47,8 @@ void graph_generator::print() {
 
 zbp::distance_matrix graph_generator::original_graph() {
   if (m_original_graph == NULL) {
+    std::cout << "A";
+    sleep(15);
     m_original_graph = new zbp::weight*[m_size];
     for (size_t i = 0; i < m_size; i++) {
       m_original_graph[i] = new zbp::weight[m_size];
@@ -139,7 +141,7 @@ graph_generator::BoostSimpleGraph::vertex_descriptor graph_generator::boost_init
   return boost::vertex(0, *m_boost_graph);
 }
 
-void graph_generator::reset() {
+void graph_generator::free_all_memory() {
   if (m_original_graph != NULL) {
     for (size_t i = 0; i < m_size; i++) {
       delete[] m_original_graph[i];
@@ -147,6 +149,10 @@ void graph_generator::reset() {
     delete[] m_original_graph;
     m_original_graph = NULL;
   }
+  free_boost_memory();
+}
+
+void graph_generator::free_boost_memory() {
   m_boost_graph.reset();
   m_boost_weighted_graph.reset();
   m_boost_johnson_graph.reset();

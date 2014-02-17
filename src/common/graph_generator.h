@@ -45,5 +45,6 @@ public:
 	std::shared_ptr<BoostWeightedGraph> boost_weighted_graph();
 	std::shared_ptr<BoostJohnsonGraph> boost_johnson_graph();
     BoostSimpleGraph::vertex_descriptor boost_initial_vertex();
-    void reset();
+    void free_all_memory();
+    void free_boost_memory();
 };
