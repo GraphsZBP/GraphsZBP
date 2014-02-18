@@ -5,8 +5,7 @@
 
 typedef std::map<unsigned int, GraphsCollection> SizesWithGraphs;
 
-void run_benchmark(const char* title, Measurable original_fcn, Measurable boost_fcn, size_t sizes[],
-    size_t sizes_length);
-void run_memory_benchmark(size_t sizes[], size_t sizes_length);
+void general_duration_benchmark();
+void general_memory_benchmark(char** argv);
 
 #endif /* STATISTICS_H_ */
