@@ -55,6 +55,10 @@ zbp::distance_matrix graph_generator::original_graph() {
     m_original_graph = new zbp::weight*[m_size];
     for (size_t i = 0; i < m_size; i++) {
       m_original_graph[i] = new zbp::weight[m_size];
+      std::fill(m_original_graph[i], m_original_graph[i] + m_size, zbp::NO_EDGE);
+    }
+
+    for (size_t i = 0; i < m_size; i++) {
       m_original_graph[i][i] = 0;
       for (size_t j = 0; j < i; j++) {
         m_original_graph[i][j] = m_original_graph[j][i] = random_edge();
