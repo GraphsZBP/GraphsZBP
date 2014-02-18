@@ -62,7 +62,7 @@ void original_johnson(std::shared_ptr<graph_generator> graph) {
 	zbp::distance_matrix G = graph->original_graph();
 	std::vector<std::vector<double>> d;
 	johnson(G, 0, graph->size(), d);
-#ifdef _DEBUG
+#ifdef DEBUG
 	if (d.empty())
 		std::cout << "Wykryto ujemny cykl" << std::endl;
 	else {

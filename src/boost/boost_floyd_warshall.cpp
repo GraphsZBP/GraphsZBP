@@ -1,6 +1,7 @@
 #include "boost_floyd_warshall.h"
 
 #ifdef DEBUG
+#include <iomanip>
 #include <iostream>
 #endif
 #include <boost/multi_array.hpp>
@@ -13,14 +14,21 @@ void boost_floyd_warshall(std::shared_ptr<graph_generator> graph) {
   boost::floyd_warshall_all_pairs_shortest_paths(*graph->boost_weighted_graph(), D);
 
 #ifdef DEBUG
-  for (size_t i = 0; i < graph->size(); i++) {
-    for (size_t j = 0; j < graph->size(); j++) {
-      if (D[i][j] == zbp::NO_EDGE) {
-        std::cout << i << " --> " << j << ": brak" << std::endl;
+  std::cout << "       ";
+  for (size_t k = 0; k < graph->size(); ++k) {
+    std::cout << std::setw(5) << k;
+  }
+  std::cout << std::endl;
+  for (size_t i = 0; i < graph->size(); ++i) {
+    std::cout << std::setw(3) << i << " -> ";
+    for (size_t j = 0; j < graph->size(); ++j) {
+      if (D[i][j] == (std::numeric_limits<int>::max)()) {
+        std::cout << std::setw(5) << "x";
       } else {
-        std::cout << i << " --> " << j << ": " << D[i][j] << std::endl;
+        std::cout << std::setw(5) << D[i][j];
       }
     }
+    std::cout << std::endl;
   }
 #endif
 }

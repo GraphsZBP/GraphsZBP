@@ -3,6 +3,7 @@
 #include <algorithm>
 #ifdef DEBUG
 #include <iostream>
+#include <iomanip>
 #endif
 #include <queue>
 
@@ -19,27 +20,35 @@ void floyd_warshall(zbp::distance_matrix G, size_t n) {
 void original_floyd_warshall(std::shared_ptr<graph_generator> graph) {
   zbp::distance_matrix m_original_graph = graph->original_graph();
 
-  zbp::distance_matrix G = new zbp::weight*[graph->size()];
+  zbp::distance_matrix D = new zbp::weight*[graph->size()];
   for (size_t i = 0; i < graph->size(); i++) {
-    G[i] = new zbp::weight[graph->size()];
-    std::copy(m_original_graph[i], m_original_graph[i] + graph->size(), G[i]);
+    D[i] = new zbp::weight[graph->size()];
+    std::copy(m_original_graph[i], m_original_graph[i] + graph->size(), D[i]);
   }
 
-  floyd_warshall(G, graph->size());
+  floyd_warshall(D, graph->size());
+
 #ifdef DEBUG
-  for (size_t i = 0; i < graph->size(); i++) {
-    for (size_t j = 0; j < graph->size(); j++) {
-      if (G[i][j] == zbp::NO_EDGE) {
-        std::cout << i << " --> " << j << ": brak" << std::endl;
+  std::cout << "       ";
+  for (size_t k = 0; k < graph->size(); ++k) {
+    std::cout << std::setw(5) << k;
+  }
+  std::cout << std::endl;
+  for (size_t i = 0; i < graph->size(); ++i) {
+    std::cout << std::setw(3) << i << " -> ";
+    for (size_t j = 0; j < graph->size(); ++j) {
+      if (D[i][j] == zbp::NO_EDGE) {
+        std::cout << std::setw(5) << "x";
       } else {
-        std::cout << i << " --> " << j << ": " << G[i][j] << std::endl;
+        std::cout << std::setw(5) << D[i][j];
       }
     }
+    std::cout << std::endl;
   }
 #endif
 
   for (size_t i = 0; i < graph->size(); i++) {
-    delete[] G[i];
+    delete[] D[i];
   }
-  delete[] G;
+  delete[] D;
 }
