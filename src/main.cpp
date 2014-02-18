@@ -93,7 +93,7 @@ void demo_filled() {
 }
 
 void demo_map() {
-  graph_generator* random_generator = new map_graph_generator(10, 100, 4);
+  graph_generator* random_generator = new map_graph_generator(20, 100, 4);
   std::shared_ptr<graph_generator> random_graph(random_generator);
   demo(random_graph);
 }
@@ -104,9 +104,9 @@ int main(int argc, char **argv) {
   if (argc == 4) {
     general_memory_benchmark(argv);
   } else {
-    //demo_dummy();
+    demo_dummy();
     //print_sample_graphs();
-    general_duration_benchmark();
+    //general_duration_benchmark();
   }
 
 //system("pause");

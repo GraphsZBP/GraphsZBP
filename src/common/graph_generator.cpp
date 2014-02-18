@@ -11,7 +11,7 @@ graph_generator::graph_generator() :
     m_size(7), m_fill(100), m_original_graph(new zbp::weight*[m_size]), m_boost_graph(new BoostSimpleGraph(m_size)) {
   const int n = 7;
   const zbp::weight x = zbp::NO_EDGE;
-  //										   0  1  2  3  4  5  6
+  //                                         0  1  2  3  4  5  6
   m_original_graph[0] = new zbp::weight[n] { 0, 1, x, 1, 1, x, x };
   m_original_graph[1] = new zbp::weight[n] { 1, 0, 1, x, 1, x, x };
   m_original_graph[2] = new zbp::weight[n] { x, 1, 0, x, x, x, 1 };
@@ -122,6 +122,7 @@ std::shared_ptr<graph_generator::BoostJohnsonGraph> graph_generator::boost_johns
           u = boost::vertex(i, *m_boost_johnson_graph);
           v = boost::vertex(j, *m_boost_johnson_graph);
           boost::add_edge(u, v, m_original_graph[i][j], *m_boost_johnson_graph);
+          boost::add_edge(v, u, m_original_graph[i][j], *m_boost_johnson_graph);
         }
       }
     }
