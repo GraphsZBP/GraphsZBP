@@ -1,7 +1,7 @@
 wypelnienie=50
 powtorzen=4
 
-echo -e Rozmiar'\t'Original'\t'Boost - adjacency_matrix'\t'Boost - adjacency_list 1'\t'Boost - adjacency_list 2
+echo -e Rozmiar'\t'Original'\t'Boost - adjacency_matrix'\t'Boost - adjacency_list directed'\t'Boost - adjacency_list undirected'\t'Boost - adjacency_list double-directed
 
 declare -A array
 for constant in in 100 500 1000 1500 2000 2500 3000 3500 4000 4500 5000 6000 7000 8000 9000 10000 11000 12000
