@@ -47,9 +47,12 @@ std::string duration_statistics_to_csv(size_t sizes[], size_t sizes_length,
   result << std::fixed;
 
   for (size_t i = 0; i < sizes_length; ++i) {
-    result << sizes[i] << ",";
+    result << sizes[i] << "\t";
     for (std::vector<DurationStatistics>::iterator it = statistics.begin(); it != statistics.end(); ++it) {
-      result << (*it)[sizes[i]].original_duration << "," << (*it)[sizes[i]].boost_duration << ",";
+      result << (*it)[sizes[i]].original_duration << "\t" << (*it)[sizes[i]].boost_duration << "\t";
+    }
+    for (std::vector<DurationStatistics>::iterator it = statistics.begin(); it != statistics.end(); ++it) {
+      result << (*it)[sizes[i]].original_memory << "\t" << (*it)[sizes[i]].boost_memory << "\t";
     }
     result << std::endl;
   }
@@ -90,10 +93,13 @@ void run_benchmark(const char* title, Measurable original_fcn, Measurable boost_
   statistics[1] = gather_duration_statistics(fill_90_graphs, original_fcn, boost_fcn);
   statistics[2] = gather_duration_statistics(map_graphs, original_fcn, boost_fcn);
 
-  std::cout << std::endl << "Rozmiar,"
-      "Original - 100% wype³nienia,Boost - 100% wype³nienia,"
-      "Original - 50% wype³nienia,Boost - 50% wype³nienia,"
-      "Original - mapa,Boost - mapa," << std::endl;
+  std::cout << std::endl << "Rozmiar\t"
+      "Original - 100% wype³nienia\tBoost - 100% wype³nienia\t"
+      "Original - 50% wype³nienia\tBoost - 50% wype³nienia\t"
+      "Original - mapa\tBoost - mapa\t"
+      "Original - 100% wype³nienia - M\tBoost - 100% wype³nienia - M\t"
+      "Original - 50% wype³nienia - M\tBoost - 50% wype³nienia - M\t"
+      "Original - mapa - M\tBoost - mapa - M\t" << std::endl;
 
   std::cout << duration_statistics_to_csv(sizes, sizes_length, statistics);
 }
@@ -125,13 +131,13 @@ void run_memory_benchmark(size_t sizes[], size_t sizes_length) {
 }
 
 /*
-void general_memory_benchmark() {
-  size_t sizes[] = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000 }; //, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000  };
-  size_t sizes_length = sizeof(sizes) / sizeof(size_t);
+ void general_memory_benchmark() {
+ size_t sizes[] = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000 }; //, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000  };
+ size_t sizes_length = sizeof(sizes) / sizeof(size_t);
 
-  run_memory_benchmark(sizes, sizes_length);
-}
-*/
+ run_memory_benchmark(sizes, sizes_length);
+ }
+ */
 
 void general_duration_benchmark() {
   size_t small[] = { 100, 200, 500 };
@@ -139,18 +145,18 @@ void general_duration_benchmark() {
   size_t large[] = { 1000, 2000, 5000 };
   size_t sizes_length = sizeof(medium) / sizeof(size_t);
 
-  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first),
-      large, sizes_length);
-  run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first),
-      large, sizes_length);
+//  run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first),
+//      large, sizes_length);
+//  run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first),
+//      large, sizes_length);
   run_benchmark("Floyd-Warshall", OriginalMeasurable(original_floyd_warshall),
-      BoostWeightedGraphMeasurable(boost_floyd_warshall), small, sizes_length);
-  run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium,
-      sizes_length);
-  run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford),
-      BoostWeightedGraphMeasurable(boost_bellman_ford), medium, sizes_length);
-  run_benchmark("Johnson", OriginalMeasurable(original_johnson), BoostJohnsonGraphMeasurable(boost_johnson), small,
-      sizes_length);
+      BoostWeightedGraphMeasurable(boost_floyd_warshall), medium, sizes_length);
+//  run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium,
+//      sizes_length);
+//  run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford),
+//      BoostWeightedGraphMeasurable(boost_bellman_ford), medium, sizes_length);
+//  run_benchmark("Johnson", OriginalMeasurable(original_johnson), BoostJohnsonGraphMeasurable(boost_johnson), small,
+//      sizes_length);
 }
 
 void general_memory_benchmark(char** argv) {

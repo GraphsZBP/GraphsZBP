@@ -24,14 +24,30 @@ Measurable::Measurable(GraphFunction duration_fcn, GraphFunction memory_fcn) :
     duration_fcn(duration_fcn), memory_fcn(memory_fcn) {
 }
 
-double Measurable::measure_duration(std::shared_ptr<graph_generator> graph) {
+Measurement Measurable::measure(std::shared_ptr<graph_generator> graph) {
   using namespace std::chrono;
   high_resolution_clock::time_point begin = high_resolution_clock::now();
 
+  memory_fcn(graph); // lazy graph generation
+
+  const int DIV = 1024;
+
+  MEMORYSTATUSEX statex;
+  statex.dwLength = sizeof(statex);
+
+  GlobalMemoryStatusEx(&statex);
+  unsigned long start_free_memory = statex.ullAvailPhys / DIV;
+
   duration_fcn(graph);
 
+  GlobalMemoryStatusEx(&statex);
   duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - begin);
-  return time_span.count();
+  unsigned long memory = start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
+
+  Measurement result;
+  result.duration = time_span.count();
+  result.memory = memory;
+  return result;
 }
 
 unsigned long Measurable::measure_memory(std::shared_ptr<graph_generator> graph) {

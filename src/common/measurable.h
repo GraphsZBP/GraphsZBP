@@ -21,9 +21,8 @@ protected:
   Measurable(GraphFunction duration_fcn, GraphFunction memory_fcn);
 
 public:
-  double measure_duration(std::shared_ptr<graph_generator> graph);
-  unsigned long measure_memory(std::shared_ptr<graph_generator> graph);
-};
+  Measurement measure(std::shared_ptr<graph_generator> graph);
+  unsigned long measure_memory(std::shared_ptr<graph_generator> graph);};
 
 class OriginalMeasurable: public Measurable {
 
@@ -48,5 +47,6 @@ class BoostJohnsonGraphMeasurable: public Measurable {
 public:
   BoostJohnsonGraphMeasurable(GraphFunction duration_fcn);
 };
+
 
 #endif /* MEASURABLE_H_ */

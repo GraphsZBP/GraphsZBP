@@ -10,15 +10,18 @@ DurationPerformanceResult measure_performance(GraphsCollection graphs, Measurabl
   unsigned long boost_memory = 0;
   double original_duration = 0;
   double boost_duration = 0;
+  Measurement measurement;
 
   for (unsigned int i = 0; i < graphs.size(); ++i) {
     graphs[i]->free_all_memory();
 
-    original_memory += original_fcn.measure_memory(graphs[i]);
-    boost_memory += boost_fcn.measure_memory(graphs[i]);
+    measurement = original_fcn.measure(graphs[i]);
+    original_duration = measurement.duration;
+    original_memory += measurement.memory;
 
-    original_duration += original_fcn.measure_duration(graphs[i]);
-    boost_duration += boost_fcn.measure_duration(graphs[i]);
+    measurement = boost_fcn.measure(graphs[i]);
+    boost_duration = measurement.duration;
+    boost_memory += measurement.memory;
 
     graphs[i]->free_all_memory();
 
