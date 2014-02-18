@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "common/graph_generator.h"
+#include "common/map_graph_generator.h"
 #include "common/statistics.h"
 #include "common/measurable.h"
 #include "original/depth_first.h"
@@ -87,8 +88,19 @@ void general_memory_benchmark() {
 //  std::cout << std::endl << "Boost: " << duration << std::endl;
 //}
 
+/*
+void test() {
+	graph_generator* random_generator;
+	random_generator = new map_graph_generator(5, 100);
+	random_generator->original_graph();
+	random_generator->print();
+}
+*/
+
 int main(int argc, char **argv) {
   srand(static_cast<unsigned int>(time(NULL)));
+
+  //test();
 
   if (argc == 4) {
     graph_generator* random_generator;

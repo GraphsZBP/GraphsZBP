@@ -6,7 +6,7 @@
 #include "graph_types.h"
 
 class graph_generator {
-private:
+protected:
 	typedef boost::property<boost::edge_weight_t, zbp::weight> WeightProperty;
 
 public:
@@ -20,7 +20,7 @@ public:
 
 	typedef std::pair < int, int >Edge;
 
-private:
+protected:
 	static zbp::weight MAX_WEIGHT;
 
     const size_t m_size;
@@ -40,7 +40,7 @@ public:
 
 	void print();
 	const size_t size();
-	zbp::distance_matrix original_graph();
+	virtual zbp::distance_matrix original_graph();
 	std::shared_ptr<BoostSimpleGraph> boost_graph();
 	std::shared_ptr<BoostWeightedGraph> boost_weighted_graph();
 	std::shared_ptr<BoostJohnsonGraph> boost_johnson_graph();

@@ -57,9 +57,6 @@
     <ClCompile Include="src\common\graph_generator.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\timer.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
     <ClCompile Include="src\original\breadth_first.cpp">
       <Filter>Source Files\original</Filter>
     </ClCompile>
@@ -78,7 +75,19 @@
     <ClCompile Include="src\original\johnson.cpp">
       <Filter>Source Files\original</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\AdjacencyList.cpp">
+    <ClCompile Include="src\common\measurable.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\perfomance.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\random_graph_providers.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\statistics.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\map_graph_generator.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,9 +113,6 @@
     <ClInclude Include="src\common\graph_generator.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\timer.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
     <ClInclude Include="src\original\dijkstra.h">
       <Filter>Header Files\original</Filter>
     </ClInclude>
@@ -125,10 +131,22 @@
     <ClInclude Include="src\original\johnson.h">
       <Filter>Header Files\original</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\AdjacencyList.h">
+    <ClInclude Include="src\common\graph_types.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\graph_types.h">
+    <ClInclude Include="src\common\measurable.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\performance.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\random_graph_providers.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\statistics.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\map_graph_generator.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
