@@ -49,4 +49,4 @@ public:
   BoostJohnsonGraphMeasurable(GraphFunction duration_fcn);
 };
 
-#endif /* MEASURABLE_H */
+#endif /* MEASURABLE_H_ */

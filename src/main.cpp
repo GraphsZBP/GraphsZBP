@@ -88,14 +88,12 @@ void general_memory_benchmark() {
 //  std::cout << std::endl << "Boost: " << duration << std::endl;
 //}
 
-/*
-void test() {
+void print_sample_graphs() {
 	graph_generator* random_generator;
-	random_generator = new map_graph_generator(5, 100);
+	random_generator = new map_graph_generator(20, 100, 10);
 	random_generator->original_graph();
 	random_generator->print();
 }
-*/
 
 int main(int argc, char **argv) {
   srand(static_cast<unsigned int>(time(NULL)));
@@ -130,7 +128,8 @@ int main(int argc, char **argv) {
       break;
     }
   } else {
-    general_duration_benchmark();
+    print_sample_graphs();
+    //general_duration_benchmark();
   }
 
   /*  graph_generator *generator = new graph_generator();

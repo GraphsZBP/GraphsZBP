@@ -4,7 +4,8 @@
 
 #define VERBOSE 1
 
-zbp::weight graph_generator::MAX_WEIGHT = 10;
+zbp::weight graph_generator::MIN_WEIGHT = 1;
+zbp::weight graph_generator::MAX_WEIGHT = 9;
 
 graph_generator::graph_generator() :
     m_size(7), m_fill(100), m_original_graph(new zbp::weight*[m_size]), m_boost_graph(new BoostSimpleGraph(m_size)) {
@@ -39,7 +40,11 @@ graph_generator::~graph_generator() {
 void graph_generator::print() {
   for (size_t i = 0; i < m_size; i++) {
     for (size_t j = 0; j < m_size; j++) {
-      std::cout << m_original_graph[i][j] << " ";
+      if (m_original_graph[i][j] == zbp::NO_EDGE) {
+        std::cout << 'x' << " ";
+      } else {
+        std::cout << m_original_graph[i][j] << " ";
+      }
     }
     std::cout << std::endl;
   }
@@ -52,26 +57,16 @@ zbp::distance_matrix graph_generator::original_graph() {
       m_original_graph[i] = new zbp::weight[m_size];
       m_original_graph[i][i] = 0;
       for (size_t j = 0; j < i; j++) {
-        bool is_connected = (rand() % 100) < m_fill;
-        m_original_graph[i][j] = m_original_graph[j][i] = is_connected ? (rand() % MAX_WEIGHT) : zbp::NO_EDGE;
+        m_original_graph[i][j] = m_original_graph[j][i] = random_edge();
       }
-    }
-
-    if (m_fill != 100) {
-      enhance_graph_connectivity();
     }
   }
   return m_original_graph;
 }
 
-void graph_generator::enhance_graph_connectivity() {
-  for (size_t i = 0; i < m_size; i++) {
-    int edges_count = std::count(m_original_graph[i], m_original_graph[i] + m_size, 1);
-    if (edges_count == 1) {
-      int edge_number = generate_edge_number(i);
-      m_original_graph[i][edge_number] = m_original_graph[edge_number][i] = MAX_WEIGHT;
-    }
-  }
+zbp::weight graph_generator::random_edge() {
+  bool is_connected = (rand() % 100) < m_fill;
+  return is_connected ? (MIN_WEIGHT + (rand() % MAX_WEIGHT)) : zbp::NO_EDGE;
 }
 
 std::shared_ptr<graph_generator::BoostSimpleGraph> graph_generator::boost_graph() {
