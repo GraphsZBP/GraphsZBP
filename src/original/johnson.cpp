@@ -2,21 +2,20 @@
 #include "bellman_ford.h"
 #include "dijkstra.h"
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #include <iomanip>
 #endif
 
 bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<std::vector<double>>& d) {
 
-  // Krok 0: Inicjalizacja zmiennych
+  // Krok 1: Inicjalizacja zmiennych
   d.clear();
   std::vector<double> h;
 
-  // Krok 1: Utworzenie G2 poprzez dodanie nowego wierzcholka S
+  // Krok 2: Utworzenie G2 poprzez dodanie nowego wierzcholka S
   // z wagami 0 do kazdego wierzcholka
   size_t G2_size = n + 1;
-  // TODO enkapsulacja
   zbp::distance_matrix G2 = new zbp::weight*[G2_size];
   zbp::weight* s = new zbp::weight[G2_size] { };
   G2[0] = s;
@@ -29,11 +28,11 @@ bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<
     G2[i + 1][0] = zbp::NO_EDGE;
   }
 
-  // Krok 2: sprawdzenie wystepowania ujemnych cykli
+  // Krok 3: sprawdzenie wystepowania ujemnych cykli
   if (!bellman_ford(G2, 0, G2_size, h))
     return false;
 
-  // Krok 3: nadanie nieujemnych wartosci krawedzi w grafie G
+  // Krok 4: nadanie nieujemnych wartosci krawedzi w grafie G
   for (unsigned int u = 0; u < n; ++u) {
     for (unsigned int v = 0; v < n; ++v) {
       int edgeWeight = G[u][v];
@@ -43,7 +42,7 @@ bool johnson(zbp::distance_matrix G, unsigned int source, size_t n, std::vector<
     }
   }
 
-  // Krok 4: obliczenie wartosci macierzy d
+  // Krok 5: obliczenie wartosci macierzy d
   for (unsigned int u = 0; u < n; ++u) {
     std::vector<double> k;
     d.push_back(k);
@@ -61,7 +60,7 @@ void original_johnson(std::shared_ptr<graph_generator> graph) {
   std::vector<std::vector<double>> D;
   johnson(G, 0, graph->size(), D);
 
-#ifdef DEBUG
+#ifdef _DEBUG
   int V = graph->size();
   std::cout << "       ";
   for (int k = 0; k < V; ++k)

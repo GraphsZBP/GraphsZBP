@@ -1,7 +1,6 @@
 #include "dijkstra.h"
 
-// TODO check INFINITY predefined variable
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #include <vector>
 #include <set>

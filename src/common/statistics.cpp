@@ -140,9 +140,19 @@ void run_memory_benchmark(size_t sizes[], size_t sizes_length) {
  */
 
 void general_duration_benchmark() {
-  size_t small[] = { 100, 200, 500 };
-  size_t medium[] = { 500, 750, 1000 };
-  size_t large[] = { 1000, 2000, 5000 };
+	/*
+	size_t small[] = { 100, 200, 300, 400, 500 };
+	size_t medium[] = { 250, 500, 750, 1000, 1250 };
+	size_t large[] = { 1000, 2000, 3000, 4000, 5000 };
+	*/
+	/*
+	size_t small[] = { 100, 200, 500 };
+	size_t medium[] = { 500, 750, 1000 };
+	size_t large[] = { 1000, 2000, 5000 };
+	*/
+  size_t small[] = { 300, 400 };
+  size_t medium[] = { 250, 1250 };
+  size_t large[] = { 3000, 4000 };
   size_t sizes_length = sizeof(medium) / sizeof(size_t);
 
   run_benchmark("Depth-First", OriginalMeasurable(original_depth_first), BoostSimpleMeasurable(boost_depth_first),
@@ -150,7 +160,7 @@ void general_duration_benchmark() {
   run_benchmark("Breadth-First", OriginalMeasurable(original_breadth_first), BoostSimpleMeasurable(boost_breadth_first),
       large, sizes_length);
   run_benchmark("Floyd-Warshall", OriginalMeasurable(original_floyd_warshall),
-      BoostWeightedGraphMeasurable(boost_floyd_warshall), medium, sizes_length);
+      BoostWeightedGraphMeasurable(boost_floyd_warshall), small, sizes_length);
   run_benchmark("Dijkstra", OriginalMeasurable(original_dijkstra), BoostWeightedGraphMeasurable(boost_dijkstra), medium,
       sizes_length);
   run_benchmark("Bellman-Ford", OriginalMeasurable(original_bellman_ford),

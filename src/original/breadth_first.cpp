@@ -14,7 +14,7 @@ void breadth_first(zbp::distance_matrix G, bool *V, size_t n) {
   while (!kolejka.empty()) {
     int s = kolejka.front();
     kolejka.pop();
-#ifdef DEBUG
+#ifdef _DEBUG
     std::cout << s << " ";
 #endif
 
@@ -35,7 +35,7 @@ void original_breadth_first(std::shared_ptr<graph_generator> graph) {
 
   breadth_first(graph->original_graph(), V, graph->size());
 
-#ifdef DEBUG
+#ifdef _DEBUG
   std::cout << std::endl;
 #endif
 

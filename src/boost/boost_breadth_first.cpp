@@ -1,6 +1,6 @@
 #include "boost_breadth_first.h"
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #endif
 #include <boost/graph/adjacency_matrix.hpp>
@@ -11,7 +11,7 @@ class bfs_print_visitor: public boost::default_bfs_visitor {
 public:
   template<typename Vertex, typename Graph>
   void discover_vertex(Vertex u, const Graph & g) const {
-#ifdef DEBUG
+#ifdef _DEBUG
     std::cout << u << " ";
 #endif
   }
@@ -22,7 +22,7 @@ void boost_breadth_first(std::shared_ptr<graph_generator> graph) {
 
   boost::breadth_first_search(*(graph->boost_graph()), graph->boost_initial_vertex(), boost::visitor(vis));
 
-#ifdef DEBUG
+#ifdef _DEBUG
   std::cout << std::endl;
 #endif
 }

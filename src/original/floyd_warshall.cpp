@@ -1,7 +1,7 @@
 #include "floyd_warshall.h"
 
 #include <algorithm>
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #include <iomanip>
 #endif
@@ -28,7 +28,7 @@ void original_floyd_warshall(std::shared_ptr<graph_generator> graph) {
 
   floyd_warshall(D, graph->size());
 
-#ifdef DEBUG
+#ifdef _DEBUG
   std::cout << "       ";
   for (size_t k = 0; k < graph->size(); ++k) {
     std::cout << std::setw(5) << k;

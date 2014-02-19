@@ -1,6 +1,6 @@
 #include "bellman_ford.h"
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #include <vector>
 #include <set>

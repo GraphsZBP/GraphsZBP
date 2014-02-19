@@ -1,6 +1,6 @@
 #include "depth_first.h"
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #endif
 
@@ -21,7 +21,7 @@ void depth_first(zbp::distance_matrix G, bool *V, size_t n) {
 
 void depth_first_visit(zbp::distance_matrix G, bool *V, int i,
     size_t n) {
-#ifdef DEBUG
+#ifdef _DEBUG
   std::cout << i << " ";
 #endif
   V[i] = 1;
@@ -39,7 +39,7 @@ void original_depth_first(std::shared_ptr<graph_generator> graph) {
 
   depth_first(graph->original_graph(), V, graph->size());
 
-#ifdef DEBUG
+#ifdef _DEBUG
   std::cout << std::endl;
 #endif
 
