@@ -3,6 +3,8 @@
 #include <chrono>
 #include <algorithm>
 #include <windows.h>
+#include <stdio.h>
+#include <psapi.h>
 
 void measure_original_memory(std::shared_ptr<graph_generator> graph) {
   graph->original_graph();
@@ -42,7 +44,8 @@ Measurement Measurable::measure(std::shared_ptr<graph_generator> graph) {
 
   GlobalMemoryStatusEx(&statex);
   duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - begin);
-  unsigned long memory = start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
+  unsigned long memory =
+      start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
 
   Measurement result;
   result.duration = time_span.count();
@@ -51,18 +54,23 @@ Measurement Measurable::measure(std::shared_ptr<graph_generator> graph) {
 }
 
 unsigned long Measurable::measure_memory(std::shared_ptr<graph_generator> graph) {
-  const int DIV = 1024;
+  const int DIV = 1000;
 
-  MEMORYSTATUSEX statex;
-  statex.dwLength = sizeof(statex);
+  HANDLE hProcess;
+  PROCESS_MEMORY_COUNTERS pmc;
+  PROCESS_MEMORY_COUNTERS pmc2;
 
-  GlobalMemoryStatusEx(&statex);
-  unsigned long start_free_memory = statex.ullAvailPhys / DIV;
+  hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, GetCurrentProcessId());
+
+  GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc));
+  unsigned long start_free_memory = pmc.PeakWorkingSetSize / DIV;
+
   memory_fcn(graph);
 
-  GlobalMemoryStatusEx(&statex);
+  GetProcessMemoryInfo(hProcess, &pmc2, sizeof(pmc));
+  unsigned long end_memory = pmc2.PeakWorkingSetSize / DIV;
 
-  return start_free_memory < (statex.ullAvailPhys / DIV) ? 0 : start_free_memory - (statex.ullAvailPhys / DIV);
+  return end_memory - start_free_memory;
 }
 
 OriginalMeasurable::OriginalMeasurable(GraphFunction duration_fcn) :

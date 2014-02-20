@@ -1,4 +1,4 @@
-wypelnienie=50
+wypelnienie=m
 powtorzen=4
 
 echo -e Rozmiar'\t'Original'\t'Boost - adjacency_matrix'\t'Boost - adjacency_list directed'\t'Boost - adjacency_list undirected'\t'Boost - adjacency_list double-directed
@@ -14,10 +14,11 @@ for rozmiar in {0..12000..100}; do
 	if [[ ${array[$rozmiar]} ]]; then
 		for rodzaj in o s w j; do 
 			wynik=0
-			for i in {1 .. $powtorzen}; do
+			for (( i=1; i<=$powtorzen; i++ ))
+			do
 				#echo "Release/graphs.exe $rodzaj $rozmiar $wypelnienie"
 				czas=`Release/graphs.exe $rodzaj $rozmiar $wypelnienie`
-				#echo $czas $?
+				#echo $czas $? $i
 				wynik=$(($wynik + $czas))
 			done;
 			echo -en $(($wynik/$powtorzen))'\t'
